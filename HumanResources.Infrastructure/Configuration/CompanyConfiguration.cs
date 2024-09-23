@@ -14,10 +14,6 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
 			.IsRequired()
 			.HasMaxLength(255);
 
-		builder.HasOne(c => c.Director)
-			.WithOne(d => d.Company)
-			.HasForeignKey<Director>(d => d.CompanyId);
-
 		builder.HasMany(c => c.Departments)
 			.WithOne(d => d.Company)
 			.HasForeignKey(d => d.CompanyID);

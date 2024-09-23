@@ -18,7 +18,6 @@ public class HumanResourcesDbContext : DbContext
 
     DbSet<Company>? Companies { get; set; }
     DbSet<Department>? Departments { get; set; }
-    DbSet<Director>? Directors { get; set; }
     DbSet<Employee>? Employees { get; set; }
     DbSet<Profession>? Professions { get; set; }
     DbSet<Speciality>? Specialities { get; set; }

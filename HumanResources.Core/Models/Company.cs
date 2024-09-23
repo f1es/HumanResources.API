@@ -6,8 +6,6 @@ public class Company
 	public string? Name { get; set; }
 	public DateTime BaseDate { get; set; }
 
-	public Guid DirectorId { get; set; }
-	public Director? Director { get; set; }
 
 	public ICollection<Department>? Departments { get; set; }
 	public ICollection<Vacancy>? Vacancies { get; set; }
