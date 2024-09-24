@@ -25,6 +25,7 @@ public class DepartmentService : IDepartmentService
 	{
 		await CheckIfCompanyExist(companyId);
 		var departmentModel = _mapper.Map<Department>(departmentDto);
+		departmentModel.Id = Guid.NewGuid();
 		departmentModel.CompanyId = companyId;
 
 		_repositoryManager.DepartmentRepository.Create(departmentModel);
