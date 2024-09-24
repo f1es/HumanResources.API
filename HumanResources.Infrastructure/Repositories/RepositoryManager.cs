@@ -19,17 +19,20 @@ public class RepositoryManager : IRepositoryManager
     {
         _context = context;
 
+		_companyRepository = new Lazy<ICompanyRepository>(() =>
+		new CompanyRepository(context));
 
+		_departmentRepository = new Lazy<IDepartmentRepository>(() =>
+		new DepartmentRepository(context));
     }
-    public ICompanyRepository CompanyRepository => throw new NotImplementedException();
-	public IDepartmentRepository DepartmentRepository => throw new NotImplementedException();
-	public IEmployeeRepository EmployeeRepository => throw new NotImplementedException();
-	public IProfessionRepository ProfessionRepository => throw new NotImplementedException();
-	public ISpecialityRepository SpecialityRepository => throw new NotImplementedException();
-	public IStateRepository StateRepository => throw new NotImplementedException();
-	public IVacancyRepository VacancyRepository => throw new NotImplementedException();
-	public IWorkerRepository WorkerRepository => throw new NotImplementedException();
-
+    public ICompanyRepository CompanyRepository => _companyRepository.Value;
+	public IDepartmentRepository DepartmentRepository => _departmentRepository.Value;
+	public IEmployeeRepository EmployeeRepository => _employeeRepository.Value;
+	public IProfessionRepository ProfessionRepository => _professionRepository.Value;
+	public ISpecialityRepository SpecialityRepository => _specialityRepository.Value;
+	public IStateRepository StateRepository => _stateRepository.Value;
+	public IVacancyRepository VacancyRepository => _vacancyRepository.Value;
+	public IWorkerRepository WorkerRepository => _workerRepository.Value;
 	public async Task SaveAsync() => 
 		await _context.SaveChangesAsync();
 }
