@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HumanResources.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,8 +17,7 @@ namespace HumanResources.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    BaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DirectorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    BaseDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -80,37 +79,15 @@ namespace HumanResources.Infrastructure.Migrations
                 name: "Departments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    CompanyID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Departments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Departments_Companies_CompanyID",
-                        column: x => x.CompanyID,
-                        principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Directors",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Directors", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Directors_Companies_CompanyId",
+                        name: "FK_Departments_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
@@ -176,7 +153,7 @@ namespace HumanResources.Infrastructure.Migrations
                 name: "DepartmentWorker",
                 columns: table => new
                 {
-                    DepartmentsId = table.Column<int>(type: "int", nullable: false),
+                    DepartmentsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     WorkersId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -197,20 +174,14 @@ namespace HumanResources.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Departments_CompanyID",
+                name: "IX_Departments_CompanyId",
                 table: "Departments",
-                column: "CompanyID");
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DepartmentWorker_WorkersId",
                 table: "DepartmentWorker",
                 column: "WorkersId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Directors_CompanyId",
-                table: "Directors",
-                column: "CompanyId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vacancies_ComapnyId",
@@ -238,9 +209,6 @@ namespace HumanResources.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "DepartmentWorker");
-
-            migrationBuilder.DropTable(
-                name: "Directors");
 
             migrationBuilder.DropTable(
                 name: "Employees");

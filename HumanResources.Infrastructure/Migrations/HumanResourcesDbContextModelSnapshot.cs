@@ -24,8 +24,8 @@ namespace HumanResources.Infrastructure.Migrations
 
             modelBuilder.Entity("DepartmentWorker", b =>
                 {
-                    b.Property<int>("DepartmentsId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("DepartmentsId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("WorkersId")
                         .HasColumnType("uniqueidentifier");
@@ -58,13 +58,11 @@ namespace HumanResources.Infrastructure.Migrations
 
             modelBuilder.Entity("HumanResources.Core.Models.Department", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<Guid>("CompanyID")
+                    b.Property<Guid>("CompanyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -74,7 +72,7 @@ namespace HumanResources.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyID");
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Departments");
                 });
@@ -235,7 +233,7 @@ namespace HumanResources.Infrastructure.Migrations
                 {
                     b.HasOne("HumanResources.Core.Models.Company", "Company")
                         .WithMany("Departments")
-                        .HasForeignKey("CompanyID")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

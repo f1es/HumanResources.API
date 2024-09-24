@@ -2,10 +2,10 @@
 
 public class Department
 {
-	public int Id { get; set; }
+	public Guid Id { get; set; }
 	public string? Name { get; set; }
 
-	public Guid CompanyID { get; set; }
+	public Guid CompanyId { get; set; }
 	public Company? Company { get; set; }
 
 	public ICollection<Worker>? Workers { get; set; }
