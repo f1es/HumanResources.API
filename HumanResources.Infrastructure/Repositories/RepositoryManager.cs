@@ -24,6 +24,24 @@ public class RepositoryManager : IRepositoryManager
 
 		_departmentRepository = new Lazy<IDepartmentRepository>(() =>
 		new DepartmentRepository(context));
+
+		_employeeRepository = new Lazy<IEmployeeRepository>(() =>
+		new EmployeeRepository(context));
+
+		_professionRepository = new Lazy<IProfessionRepository>(() =>
+		new ProfessionRepository(context));
+
+		_specialityRepository = new Lazy<ISpecialityRepository>(() => 
+		new SpecialityRepository(context));
+
+		_stateRepository = new Lazy<IStateRepository>(() =>
+		new StateRepository(context));
+
+		_vacancyRepository = new Lazy<IVacancyRepository>(() =>
+		new VacancyRepository(context));
+
+		_workerRepository = new Lazy<IWorkerRepository>(() => 
+		new WorkerRepository(context));
     }
     public ICompanyRepository CompanyRepository => _companyRepository.Value;
 	public IDepartmentRepository DepartmentRepository => _departmentRepository.Value;
