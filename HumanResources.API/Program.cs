@@ -1,4 +1,7 @@
+using HumanResources.API.Middlewares;
 using HumanResources.Infrastructure.Context;
+using HumanResources.Infrastructure.Extensions;
+using HumanResources.Usecase.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +12,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.ConfigureMapperProfiles();
+builder.Services.ConfigureRepositories();
+builder.Services.ConfigureServices();
 
 builder.Services.AddDbContext<HumanResourcesDbContext>(options =>
 {
@@ -16,6 +23,8 @@ builder.Services.AddDbContext<HumanResourcesDbContext>(options =>
 });
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
