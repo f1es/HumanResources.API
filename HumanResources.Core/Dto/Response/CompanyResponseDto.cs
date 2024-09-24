@@ -3,5 +3,4 @@
 public record CompanyResponseDto(
 	Guid Id,
 	string Name,
-	DateTime BaseDate,
-	Guid DirectorId);
+	DateTime BaseDate);

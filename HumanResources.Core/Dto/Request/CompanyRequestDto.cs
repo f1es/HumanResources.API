@@ -2,5 +2,4 @@
 
 public record CompanyRequestDto(
 	string Name, 
-	DateTime BaseDate,
-	Guid DirectorId);
+	DateTime BaseDate);
