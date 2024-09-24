@@ -42,21 +42,21 @@ public class CompanyService : ICompanyService
 
 	public async Task<CompanyResponseDto> GetByIdAsync(Guid id)
 	{
-		var companyModel = await GetByIdAndCheckIfExist(id);
+		var companyModel = await GetByIdAndCheckIfExistAsync(id);
 		var companyResponse = _mapper.Map<CompanyResponseDto>(companyModel);
 		return companyResponse;
 	}
 
 	public async Task DeleteAsync(Guid id)
 	{
-		var company = await GetByIdAndCheckIfExist(id);
+		var company = await GetByIdAndCheckIfExistAsync(id);
 		_repositoryManager.CompanyRepository.Delete(company);
 		await _repositoryManager.SaveAsync();
 	}
 
 	public async Task UpdateAsync(Guid id, CompanyRequestDto companyDto)
 	{
-		var companyModel = await GetByIdAndCheckIfExist(id, trackChanges: true);
+		var companyModel = await GetByIdAndCheckIfExistAsync(id, trackChanges: true);
 
 		companyModel = _mapper.Map(companyDto, companyModel);
 		_repositoryManager.CompanyRepository.Update(companyModel);
@@ -64,7 +64,7 @@ public class CompanyService : ICompanyService
 		await _repositoryManager.SaveAsync();
 	}
 
-	private async Task<Company> GetByIdAndCheckIfExist(Guid id, bool trackChanges = false)
+	private async Task<Company> GetByIdAndCheckIfExistAsync(Guid id, bool trackChanges = false)
 	{
 		var company = await _repositoryManager.CompanyRepository.GetByIdAsync(id, trackChanges);
 
