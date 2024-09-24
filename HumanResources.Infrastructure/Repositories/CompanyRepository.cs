@@ -15,10 +15,10 @@ public class CompanyRepository : BaseRepository<Company>, ICompanyRepository
     }
     public async Task<Company> GetByIdAsync(Guid Id, bool trackChanges = false) =>
         trackChanges ?
-		await GetByPredicate(c => c.Id == Id)
+		await GetByPredicate(c => c.Id.Equals(Id))
         .FirstOrDefaultAsync()
         :
-		await GetByPredicate(c => c.Id == Id)
+		await GetByPredicate(c => c.Id.Equals(Id))
         .AsNoTracking()
 		.FirstOrDefaultAsync();
 
