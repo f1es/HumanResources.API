@@ -11,6 +11,8 @@ public static class UsecaseDIExtensions
 	{
 		services.AddScoped<ICompanyService, CompanyService>();
 		services.AddScoped<IDepartmentService, DepartmentService>();
+		services.AddScoped<IVacancyService, VacancyService>();
+		services.AddScoped<IProfessionService, ProfessionService>();
 	}
 
 	public static void ConfigureMapperProfiles(this IServiceCollection services)
@@ -19,6 +21,8 @@ public static class UsecaseDIExtensions
 		{
 			options.AddProfile<CompanyMapperProfile>();
 			options.AddProfile<DepartmentMapperProfile>();
+			options.AddProfile<VacancyMapperProfile>();
+			options.AddProfile<ProfessionMapperProfile>();
 		});
 	}
 }
