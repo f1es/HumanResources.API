@@ -19,7 +19,7 @@ namespace HumanResources.Infrastructure.Configuration
 
 			builder.HasMany(x => x.Vacancies)
 				.WithOne(v => v.Profession)
-				.HasForeignKey(v => v.ProffesionId);
+				.HasForeignKey(v => v.ProfessionId);
 		}
 	}
 }

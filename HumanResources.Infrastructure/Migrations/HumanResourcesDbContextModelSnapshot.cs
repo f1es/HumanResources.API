@@ -161,7 +161,11 @@ namespace HumanResources.Infrastructure.Migrations
                     b.Property<Guid>("ComapnyId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ProffesionId")
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid>("ProfessionId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("ReceiptDate")
@@ -171,7 +175,7 @@ namespace HumanResources.Infrastructure.Migrations
 
                     b.HasIndex("ComapnyId");
 
-                    b.HasIndex("ProffesionId");
+                    b.HasIndex("ProfessionId");
 
                     b.ToTable("Vacancies");
                 });
@@ -250,7 +254,7 @@ namespace HumanResources.Infrastructure.Migrations
 
                     b.HasOne("HumanResources.Core.Models.Profession", "Profession")
                         .WithMany("Vacancies")
-                        .HasForeignKey("ProffesionId")
+                        .HasForeignKey("ProfessionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

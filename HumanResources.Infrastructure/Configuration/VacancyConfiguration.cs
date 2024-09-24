@@ -13,9 +13,12 @@ public class VacancyConfiguration : IEntityTypeConfiguration<Vacancy>
 		builder.Property(x => x.ReceiptDate)
 			.IsRequired();
 
+		builder.Property(x => x.Description)
+			.HasMaxLength(500);
+
 		builder.HasOne(x => x.Profession)
 			.WithMany(p => p.Vacancies)
-			.HasForeignKey(x => x.ProffesionId);
+			.HasForeignKey(x => x.ProfessionId);
 
 		builder.HasOne(x => x.Company)
 			.WithMany(c => c.Vacancies)
