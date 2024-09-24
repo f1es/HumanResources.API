@@ -6,8 +6,8 @@ namespace HumanResources.Usecase.Services.Interfaces;
 public interface ICompanyService
 {
 	Task<IEnumerable<CompanyResponseDto>> GetAllAsync();
-	Task<CompanyResponseDto> GetByIdAsync(Guid Id);
-	Task<CompanyResponseDto> CreateAsync(CompanyRequestDto company);
-	Task UpdateAsync(Guid Id, CompanyRequestDto company);
-	Task RemoveAsync(Guid Id);
+	Task<CompanyResponseDto> GetByIdAsync(Guid id);
+	Task<CompanyResponseDto> CreateAsync(CompanyRequestDto companyDto);
+	Task UpdateAsync(Guid id, CompanyRequestDto companyDto);
+	Task DeleteAsync(Guid id);
 }

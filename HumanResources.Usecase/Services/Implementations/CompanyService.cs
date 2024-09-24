@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HumanResources.Core.Dto.Request;
 using HumanResources.Core.Dto.Response;
+using HumanResources.Core.Exceptions;
 using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
 using HumanResources.Usecase.Services.Interfaces;
@@ -12,7 +13,9 @@ public class CompanyService : ICompanyService
 	private readonly IRepositoryManager _repositoryManager;
 	private readonly IMapper _mapper;
 
-	public CompanyService(IRepositoryManager repositoryManager, IMapper mapper)
+	public CompanyService(
+		IRepositoryManager repositoryManager, 
+		IMapper mapper)
 	{
 		_repositoryManager = repositoryManager;
 		_mapper = mapper;
@@ -26,7 +29,7 @@ public class CompanyService : ICompanyService
 		_repositoryManager.CompanyRepository.Create(companyModel);
 		await _repositoryManager.SaveAsync();
 
-		var companyResponse = _mapper.Map<CompanyResponseDto>(companyDto);
+		var companyResponse = _mapper.Map<CompanyResponseDto>(companyModel);
 		return companyResponse;
 	}
 
@@ -37,39 +40,36 @@ public class CompanyService : ICompanyService
 		return companiesResponse;
 	}
 
-	public async Task<CompanyResponseDto> GetByIdAsync(Guid Id)
+	public async Task<CompanyResponseDto> GetByIdAsync(Guid id)
 	{
-		var companyModel = await GetByIdAndCheckIfExist(Id);
-
+		var companyModel = await GetByIdAndCheckIfExist(id);
 		var companyResponse = _mapper.Map<CompanyResponseDto>(companyModel);
-
 		return companyResponse;
 	}
 
-	public async Task RemoveAsync(Guid Id)
+	public async Task DeleteAsync(Guid id)
 	{
-		var company = await GetByIdAndCheckIfExist(Id);
-
+		var company = await GetByIdAndCheckIfExist(id);
 		_repositoryManager.CompanyRepository.Delete(company);
+		await _repositoryManager.SaveAsync();
+	}
+
+	public async Task UpdateAsync(Guid id, CompanyRequestDto companyDto)
+	{
+		var companyModel = await GetByIdAndCheckIfExist(id, trackChanges: true);
+
+		companyModel = _mapper.Map(companyDto, companyModel);
+		_repositoryManager.CompanyRepository.Update(companyModel);
 
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task UpdateAsync(Guid Id, CompanyRequestDto companyDto)
+	private async Task<Company> GetByIdAndCheckIfExist(Guid id, bool trackChanges = false)
 	{
-		var companyModel = await GetByIdAndCheckIfExist(Id, trackChanges: true);
-
-		_mapper.Map(companyDto, companyModel);
-
-		await _repositoryManager.SaveAsync();
-	}
-
-	private async Task<Company> GetByIdAndCheckIfExist(Guid Id, bool trackChanges = false)
-	{
-		var company = await _repositoryManager.CompanyRepository.GetByIdAsync(Id, trackChanges);
+		var company = await _repositoryManager.CompanyRepository.GetByIdAsync(id, trackChanges);
 
 		if (company is null)
-			throw new Exception();
+			throw new NotFoundException($"Company with id {id} not found");
 
 		return company;
 	}
