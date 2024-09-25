@@ -29,6 +29,8 @@ public class VacancyService : IVacancyService
 		vacancyModel.Id = Guid.NewGuid();
 		vacancyModel.ComapnyId = companyId;
 
+		await GetProfessionByIdAndCheckIfExistAsync(vacancyDto.ProffesionId);
+
 		_repositoryManager.VacancyRepository.Create(vacancyModel);
 		await _repositoryManager.SaveAsync();
 
@@ -40,7 +42,7 @@ public class VacancyService : IVacancyService
 	{
 		await CheckIfCompanyExistAsync(companyId);
 
-		var vacancy = await GetByIdAndCheckIfExistAsync(id);
+		var vacancy = await GetVacancyByIdAndCheckIfExistAsync(id);
 		_repositoryManager.VacancyRepository.Delete(vacancy);
 		await _repositoryManager.SaveAsync();
 	}
@@ -57,14 +59,29 @@ public class VacancyService : IVacancyService
 	public async Task<VacancyResponseDto> GetByIdAsync(Guid companyId, Guid id)
 	{
 		await CheckIfCompanyExistAsync(companyId);
-		throw new NotImplementedException();
+		var vacancyModel = await GetVacancyByIdAndCheckIfExistAsync(id);
+		var vacancyResponse = _mapper.Map<VacancyResponseDto>(vacancyModel);
+		return vacancyResponse;
+	}
+
+	public async Task<ProfessionResponseDto> GetProfessionByIdAsync(Guid companyId, Guid id)
+	{
+		await CheckIfCompanyExistAsync(companyId);
+
+		var vacancyModel = await GetVacancyByIdAndCheckIfExistAsync(id);
+		var professionModel = await GetProfessionByIdAndCheckIfExistAsync(id);
+
+		var professionResponse = _mapper.Map<ProfessionResponseDto>(professionModel);
+		return professionResponse;
 	}
 
 	public async Task UpdateAsync(Guid companyId, Guid id, VacancyRequestDto vacancyDto)
 	{
 		await CheckIfCompanyExistAsync(companyId);
 		
-		var vacancyModel = await GetByIdAndCheckIfExistAsync(id, trackChanges: true);
+		var vacancyModel = await GetVacancyByIdAndCheckIfExistAsync(id, trackChanges: true);
+
+		await GetProfessionByIdAndCheckIfExistAsync(vacancyDto.ProffesionId);
 
 		vacancyModel = _mapper.Map(vacancyDto, vacancyModel);
 		_repositoryManager.VacancyRepository.Update(vacancyModel);
@@ -79,7 +96,8 @@ public class VacancyService : IVacancyService
 		if (company is null)
 			throw new NotFoundException($"Company with id {companyId} not found");
 	}
-	private async Task<Vacancy> GetByIdAndCheckIfExistAsync(Guid id, bool trackChanges = false)
+
+	private async Task<Vacancy> GetVacancyByIdAndCheckIfExistAsync(Guid id, bool trackChanges = false)
 	{
 		var vacancy = await _repositoryManager.VacancyRepository.GetByIdAsync(id, trackChanges);
 
@@ -87,5 +105,15 @@ public class VacancyService : IVacancyService
 			throw new NotFoundException($"Vacancy with id {id} not found");
 
 		return vacancy;
+	}
+
+	private async Task<Profession> GetProfessionByIdAndCheckIfExistAsync(Guid id, bool trackChanges = false)
+	{
+		var profession = await _repositoryManager.ProfessionRepository.GetByIdAsync(id, trackChanges);
+
+		if (profession is null)
+			throw new NotFoundException($"Profession with id {id} not found");
+
+		return profession;
 	}
 }
