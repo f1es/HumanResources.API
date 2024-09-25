@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace HumanResources.Infrastructure.Extensions;
 
-public static class DIExtensions
+public static class InfrastructureDIExtensions
 {
 	public static void ConfigureRepositories(this IServiceCollection services)
 	{

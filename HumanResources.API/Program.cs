@@ -16,6 +16,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.ConfigureMapperProfiles();
 builder.Services.ConfigureRepositories();
 builder.Services.ConfigureServices();
+builder.Services.ConfigureValidators();
 
 builder.Services.AddDbContext<HumanResourcesDbContext>(options =>
 {
