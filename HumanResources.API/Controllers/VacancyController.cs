@@ -31,6 +31,14 @@ public class VacancyController : ControllerBase
 		return Ok(response);
 	}
 
+	[HttpGet("{id:guid}/profession")]
+	public async Task<IActionResult> GetProfession(Guid companyId, Guid id)
+	{
+		var response = await _vacancyService.GetProfessionByIdAsync(companyId, id);
+
+		return Ok(response);
+	}
+
 	[HttpPost]
 	public async Task<IActionResult> Create(Guid companyId, VacancyRequestDto vacancyDto)
 	{
