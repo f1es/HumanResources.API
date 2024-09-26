@@ -14,7 +14,7 @@ public class VacancyConfiguration : IEntityTypeConfiguration<Vacancy>
 			.IsRequired();
 
 		builder.Property(x => x.Description)
-			.HasMaxLength(500);
+			.HasMaxLength(1000);
 
 		builder.HasOne(x => x.Profession)
 			.WithMany(p => p.Vacancies)
