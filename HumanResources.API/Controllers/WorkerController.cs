@@ -1,4 +1,5 @@
 ﻿using HumanResources.Core.Dto.Request;
+using HumanResources.Core.Models;
 using HumanResources.Usecase.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,9 @@ public class WorkerController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> GetAll(Guid companyId, Guid departmentId)
+	public async Task<IActionResult> GetAll(Guid companyId, Guid departmentId, [FromQuery] PagingParameters pagingParameters)
 	{
-		var response = await _workerService.GetAllAsync(companyId, departmentId);
+		var response = await _workerService.GetAllAsync(companyId, departmentId, pagingParameters);
 
 		return Ok(response);
 	}

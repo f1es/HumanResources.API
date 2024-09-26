@@ -1,4 +1,5 @@
 ﻿using HumanResources.Core.Dto.Request;
+using HumanResources.Core.Models;
 using HumanResources.Usecase.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,9 @@ public class CompanyController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> GetAll()
+	public async Task<IActionResult> GetAll([FromQuery] PagingParameters pagingParameters)
 	{
-		var response = await _companyService.GetAllAsync();
+		var response = await _companyService.GetAllAsync(pagingParameters);
 
 		return Ok(response);
 	}

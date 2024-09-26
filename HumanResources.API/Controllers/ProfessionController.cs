@@ -1,4 +1,5 @@
 ﻿using HumanResources.Core.Dto.Request;
+using HumanResources.Core.Models;
 using HumanResources.Usecase.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,9 @@ public class ProfessionController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> GetAll()
+	public async Task<IActionResult> GetAll([FromQuery] PagingParameters pagingParameters)
 	{
-		var response = await _professionService.GetAllAsync();
+		var response = await _professionService.GetAllAsync(pagingParameters);
 
 		return Ok(response);
 	}
