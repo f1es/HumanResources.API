@@ -44,11 +44,11 @@ public class DepartmentService : IDepartmentService
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task<IEnumerable<DepartmentResponseDto>> GetAllAsync(Guid companyId)
+	public async Task<IEnumerable<DepartmentResponseDto>> GetAllAsync(Guid companyId, PagingParameters pagingParameters)
 	{
 		await CheckIfCompanyExist(companyId);
 
-		var departments = await _repositoryManager.DepartmentRepository.GetAllAsync();
+		var departments = await _repositoryManager.DepartmentRepository.GetAllAsync(pagingParameters);
 		var depaetmentsResponse = _mapper.Map<IEnumerable<DepartmentResponseDto>>(departments);
 		return depaetmentsResponse;
 	}
@@ -68,7 +68,6 @@ public class DepartmentService : IDepartmentService
 		var departmentModel = await GetDepartmentByIdAndCheckIfExist(id, trackChanges: true);
 
 		departmentModel = _mapper.Map(departmentDto, departmentModel);
-		_repositoryManager.DepartmentRepository.Update(departmentModel);
 
 		await _repositoryManager.SaveAsync();
 	}

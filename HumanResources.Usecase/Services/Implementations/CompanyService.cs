@@ -33,9 +33,9 @@ public class CompanyService : ICompanyService
 		return companyResponse;
 	}
 
-	public async Task<IEnumerable<CompanyResponseDto>> GetAllAsync()
+	public async Task<IEnumerable<CompanyResponseDto>> GetAllAsync(PagingParameters pagingParameters)
 	{
-		var companies = await _repositoryManager.CompanyRepository.GetAllAsync();
+		var companies = await _repositoryManager.CompanyRepository.GetAllAsync(pagingParameters);
 		var companiesResponse = _mapper.Map<IEnumerable<CompanyResponseDto>>(companies);
 		return companiesResponse;
 	}
@@ -59,7 +59,6 @@ public class CompanyService : ICompanyService
 		var companyModel = await GetByIdAndCheckIfExistAsync(id, trackChanges: true);
 
 		companyModel = _mapper.Map(companyDto, companyModel);
-		_repositoryManager.CompanyRepository.Update(companyModel);
 
 		await _repositoryManager.SaveAsync();
 	}

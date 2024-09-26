@@ -40,9 +40,9 @@ public class ProfessionService : IProfessionService
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task<IEnumerable<ProfessionResponseDto>> GetAllAsync()
+	public async Task<IEnumerable<ProfessionResponseDto>> GetAllAsync(PagingParameters pagingParameters)
 	{
-		var professions = await _repositoryManager.ProfessionRepository.GetAllAsync();
+		var professions = await _repositoryManager.ProfessionRepository.GetAllAsync(pagingParameters);
 		var professionsResponse = _mapper.Map<IEnumerable<ProfessionResponseDto>>(professions);
 		return professionsResponse;
 	}
@@ -59,7 +59,6 @@ public class ProfessionService : IProfessionService
 		var professionModel = await GetByIdAndCheckIfExist(id ,trackChanges: true);
 
 		professionModel = _mapper.Map(professionDto, professionModel);
-		_repositoryManager.ProfessionRepository.Update(professionModel);
 
 		await _repositoryManager.SaveAsync();
 	}

@@ -47,11 +47,11 @@ public class VacancyService : IVacancyService
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task<IEnumerable<VacancyResponseDto>> GetAllAsync(Guid companyId)
+	public async Task<IEnumerable<VacancyResponseDto>> GetAllAsync(Guid companyId, PagingParameters pagingParameters)
 	{
 		await CheckIfCompanyExistAsync(companyId);
 		
-		var vacancies = await _repositoryManager.VacancyRepository.GetAllAsync();
+		var vacancies = await _repositoryManager.VacancyRepository.GetAllAsync(pagingParameters);
 		var vacanciesResponse = _mapper.Map<IEnumerable<VacancyResponseDto>>(vacancies);
 		return vacanciesResponse;
 	}
@@ -84,7 +84,6 @@ public class VacancyService : IVacancyService
 		await GetProfessionByIdAndCheckIfExistAsync(vacancyDto.ProffesionId);
 
 		vacancyModel = _mapper.Map(vacancyDto, vacancyModel);
-		_repositoryManager.VacancyRepository.Update(vacancyModel);
 
 		await _repositoryManager.SaveAsync();
 	}

@@ -45,12 +45,12 @@ public class WorkerService : IWorkerService
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task<IEnumerable<WorkerResponseDto>> GetAllAsync(Guid companyId, Guid departmentId)
+	public async Task<IEnumerable<WorkerResponseDto>> GetAllAsync(Guid companyId, Guid departmentId, PagingParameters pagingParameters)
 	{
 		await CheckIfCompanyExistAsync(companyId);
 		await CheckIfDepartmentExistAsync(departmentId);
 
-		var workers = await _repositoryManager.WorkerRepository.GetAllAsync();
+		var workers = await _repositoryManager.WorkerRepository.GetAllAsync(pagingParameters);
 		var workersResponse = _mapper.Map<IEnumerable<WorkerResponseDto>>(workers);
 
 		return workersResponse;
@@ -74,7 +74,6 @@ public class WorkerService : IWorkerService
 		var worker = await GetWorkerByIdAndCheckIfExistAsync(id);
 
 		worker = _mapper.Map(workerDto, worker);
-		_repositoryManager.WorkerRepository.Update(worker);
 
 		await _repositoryManager.SaveAsync();
 	}
