@@ -1,6 +1,6 @@
-﻿using HumanResources.Core.Models;
-using HumanResources.Core.Shared.Dto.Request;
+﻿using HumanResources.Core.Shared.Dto.Request;
 using HumanResources.Core.Shared.Dto.Response;
+using HumanResources.Core.Shared.Parameters;
 
 namespace HumanResources.Usecase.Services.Interfaces;
 

@@ -1,7 +1,7 @@
-﻿namespace HumanResources.Core.Models;
+﻿namespace HumanResources.Core.Shared.Parameters;
 
 public class RequestParameters
 {
-	public int PageNumber { get; set; } = 1;
-	public int PageSize { get; set; } = 10;
+    public int PageNumber { get; set; } = 1;
+    public int PageSize { get; set; } = 10;
 }
