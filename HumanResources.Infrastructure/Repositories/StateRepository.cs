@@ -1,5 +1,6 @@
 ﻿using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
+using HumanResources.Core.Shared.Parameters;
 using HumanResources.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,7 @@ public class StateRepository : BaseRepository<State>, IStateRepository
 		_context = context;
 	}
 
-	public async Task<IEnumerable<State>> GetAllAsync(PagingParameters pagingParameters, bool trackChanges = false) =>
+	public async Task<IEnumerable<State>> GetAllAsync(RequestParameters pagingParameters, bool trackChanges = false) =>
 		await GetAll(trackChanges).ToListAsync();
 
 	public async Task<State> GetByIdAsync(Guid Id, bool trackChanges = false) => 

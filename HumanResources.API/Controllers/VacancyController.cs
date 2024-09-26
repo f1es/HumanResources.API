@@ -1,5 +1,5 @@
-﻿using HumanResources.Core.Dto.Request;
-using HumanResources.Core.Models;
+﻿using HumanResources.Core.Shared.Dto.Request;
+using HumanResources.Core.Shared.Parameters;
 using HumanResources.Usecase.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +17,9 @@ public class VacancyController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> GetAll(Guid companyId, [FromQuery] PagingParameters pagingParameters)
+	public async Task<IActionResult> GetAll(Guid companyId, [FromQuery] RequestParameters requestParameters)
 	{
-		var response = await _vacancyService.GetAllAsync(companyId, pagingParameters);
+		var response = await _vacancyService.GetAllAsync(companyId, requestParameters);
 
 		return Ok(response);
 	}

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using HumanResources.Core.Dto.Request;
-using HumanResources.Core.Dto.Response;
 using HumanResources.Core.Models;
+using HumanResources.Core.Shared.Dto.Request;
+using HumanResources.Core.Shared.Dto.Response;
 using Microsoft.Extensions.Options;
 
 namespace HumanResources.Usecase.MapperProfiles;

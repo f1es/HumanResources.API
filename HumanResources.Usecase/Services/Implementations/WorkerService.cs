@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using HumanResources.Core.Dto.Request;
-using HumanResources.Core.Dto.Response;
 using HumanResources.Core.Exceptions;
 using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
+using HumanResources.Core.Shared.Dto.Request;
+using HumanResources.Core.Shared.Dto.Response;
 using HumanResources.Usecase.Services.Interfaces;
 
 namespace HumanResources.Usecase.Services.Implementations;
@@ -45,12 +45,12 @@ public class WorkerService : IWorkerService
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task<IEnumerable<WorkerResponseDto>> GetAllAsync(Guid companyId, Guid departmentId, PagingParameters pagingParameters)
+	public async Task<IEnumerable<WorkerResponseDto>> GetAllAsync(Guid companyId, Guid departmentId, RequestParameters requestParameters)
 	{
 		await CheckIfCompanyExistAsync(companyId);
 		await CheckIfDepartmentExistAsync(departmentId);
 
-		var workers = await _repositoryManager.WorkerRepository.GetAllAsync(pagingParameters);
+		var workers = await _repositoryManager.WorkerRepository.GetAllAsync(requestParameters);
 		var workersResponse = _mapper.Map<IEnumerable<WorkerResponseDto>>(workers);
 
 		return workersResponse;

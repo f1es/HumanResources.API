@@ -1,5 +1,6 @@
 ﻿using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
+using HumanResources.Core.Shared.Parameters;
 using HumanResources.Infrastructure.Context;
 using HumanResources.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ public class EmployeeRepository : BaseRepository<Employee>, IEmployeeRepository
 		_context = context;
 	}
 
-	public async Task<IEnumerable<Employee>> GetAllAsync(PagingParameters pagingParameters, bool trackChanges = false) =>
+	public async Task<IEnumerable<Employee>> GetAllAsync(RequestParameters pagingParameters, bool trackChanges = false) =>
 		await GetAll(trackChanges)
 		.Paginate(pagingParameters)
 		.ToListAsync();

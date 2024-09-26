@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using HumanResources.Core.Dto.Request;
+using HumanResources.Core.Shared.Dto.Request;
 
 namespace HumanResources.Usecase.Validators;
 

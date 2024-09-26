@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using HumanResources.Core.Dto.Request;
-using HumanResources.Core.Dto.Response;
 using HumanResources.Core.Exceptions;
 using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
+using HumanResources.Core.Shared.Dto.Request;
+using HumanResources.Core.Shared.Dto.Response;
 using HumanResources.Usecase.Services.Interfaces;
 
 namespace HumanResources.Usecase.Services.Implementations;
@@ -40,9 +40,9 @@ public class ProfessionService : IProfessionService
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task<IEnumerable<ProfessionResponseDto>> GetAllAsync(PagingParameters pagingParameters)
+	public async Task<IEnumerable<ProfessionResponseDto>> GetAllAsync(RequestParameters requestParameters)
 	{
-		var professions = await _repositoryManager.ProfessionRepository.GetAllAsync(pagingParameters);
+		var professions = await _repositoryManager.ProfessionRepository.GetAllAsync(requestParameters);
 		var professionsResponse = _mapper.Map<IEnumerable<ProfessionResponseDto>>(professions);
 		return professionsResponse;
 	}

@@ -1,5 +1,6 @@
 ﻿using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
+using HumanResources.Core.Shared.Parameters;
 using HumanResources.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,7 @@ public class ProfessionRepository : BaseRepository<Profession>, IProfessionRepos
 		_context = context;
 	}
 
-	public async Task<IEnumerable<Profession>> GetAllAsync(PagingParameters pagingParameters, bool trackChanges = false) => 
+	public async Task<IEnumerable<Profession>> GetAllAsync(RequestParameters pagingParameters, bool trackChanges = false) => 
 		await GetAll(trackChanges).ToListAsync();
 
 	public async Task<Profession> GetByIdAsync(Guid Id, bool trackChanges = false) =>

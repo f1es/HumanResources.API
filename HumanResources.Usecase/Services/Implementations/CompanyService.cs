@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using HumanResources.Core.Dto.Request;
-using HumanResources.Core.Dto.Response;
 using HumanResources.Core.Exceptions;
 using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
+using HumanResources.Core.Shared.Dto.Request;
+using HumanResources.Core.Shared.Dto.Response;
 using HumanResources.Usecase.Services.Interfaces;
 
 namespace HumanResources.Usecase.Services.Implementations;
@@ -33,9 +33,9 @@ public class CompanyService : ICompanyService
 		return companyResponse;
 	}
 
-	public async Task<IEnumerable<CompanyResponseDto>> GetAllAsync(PagingParameters pagingParameters)
+	public async Task<IEnumerable<CompanyResponseDto>> GetAllAsync(RequestParameters requestParameters)
 	{
-		var companies = await _repositoryManager.CompanyRepository.GetAllAsync(pagingParameters);
+		var companies = await _repositoryManager.CompanyRepository.GetAllAsync(requestParameters);
 		var companiesResponse = _mapper.Map<IEnumerable<CompanyResponseDto>>(companies);
 		return companiesResponse;
 	}

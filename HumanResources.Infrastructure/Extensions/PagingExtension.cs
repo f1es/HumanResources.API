@@ -1,16 +1,16 @@
-﻿using HumanResources.Core.Models;
+﻿using HumanResources.Core.Shared.Parameters;
 
 namespace HumanResources.Infrastructure.Extensions;
 
 public static class PagingExtension
 {
-	public static IQueryable<T> Paginate<T>(this IQueryable<T> entities, PagingParameters paging)
+	public static IQueryable<T> Paginate<T>(this IQueryable<T> entities, RequestParameters parameters)
 	{
-		if (paging.PageNumber <= 0 || paging.PageSize <= 0)
-			paging = new PagingParameters();
+		if (parameters.PageNumber <= 0 || parameters.PageSize <= 0)
+			parameters = new RequestParameters();
 
 		return entities
-		.Skip((paging.PageNumber - 1) * paging.PageSize)
-		.Take(paging.PageSize);
+		.Skip((parameters.PageNumber - 1) * parameters.PageSize)
+		.Take(parameters.PageSize);
 	}
 }

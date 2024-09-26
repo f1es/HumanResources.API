@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using HumanResources.Core.Dto.Request;
-using HumanResources.Core.Dto.Response;
 using HumanResources.Core.Exceptions;
 using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
+using HumanResources.Core.Shared.Dto.Request;
+using HumanResources.Core.Shared.Dto.Response;
 using HumanResources.Usecase.Services.Interfaces;
 
 namespace HumanResources.Usecase.Services.Implementations;
@@ -47,11 +47,11 @@ public class VacancyService : IVacancyService
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task<IEnumerable<VacancyResponseDto>> GetAllAsync(Guid companyId, PagingParameters pagingParameters)
+	public async Task<IEnumerable<VacancyResponseDto>> GetAllAsync(Guid companyId, RequestParameters requestParameters)
 	{
 		await CheckIfCompanyExistAsync(companyId);
 		
-		var vacancies = await _repositoryManager.VacancyRepository.GetAllAsync(pagingParameters);
+		var vacancies = await _repositoryManager.VacancyRepository.GetAllAsync(requestParameters);
 		var vacanciesResponse = _mapper.Map<IEnumerable<VacancyResponseDto>>(vacancies);
 		return vacanciesResponse;
 	}

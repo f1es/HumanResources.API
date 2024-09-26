@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using HumanResources.Core.Dto.Request;
-using HumanResources.Core.Dto.Response;
 using HumanResources.Core.Exceptions;
 using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
+using HumanResources.Core.Shared.Dto.Request;
+using HumanResources.Core.Shared.Dto.Response;
 using HumanResources.Usecase.Services.Interfaces;
 
 namespace HumanResources.Usecase.Services.Implementations;
@@ -44,11 +44,11 @@ public class DepartmentService : IDepartmentService
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task<IEnumerable<DepartmentResponseDto>> GetAllAsync(Guid companyId, PagingParameters pagingParameters)
+	public async Task<IEnumerable<DepartmentResponseDto>> GetAllAsync(Guid companyId, RequestParameters requestParameters)
 	{
 		await CheckIfCompanyExist(companyId);
 
-		var departments = await _repositoryManager.DepartmentRepository.GetAllAsync(pagingParameters);
+		var departments = await _repositoryManager.DepartmentRepository.GetAllAsync(requestParameters);
 		var depaetmentsResponse = _mapper.Map<IEnumerable<DepartmentResponseDto>>(departments);
 		return depaetmentsResponse;
 	}

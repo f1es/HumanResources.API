@@ -1,5 +1,6 @@
 ﻿using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
+using HumanResources.Core.Shared.Parameters;
 using HumanResources.Infrastructure.Context;
 using HumanResources.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ public class SpecialityRepository : BaseRepository<Speciality>, ISpecialityRepos
 		_context = context;
 	}
 
-	public async Task<IEnumerable<Speciality>> GetAllAsync(PagingParameters pagingParameters, bool trackChanges = false) =>
+	public async Task<IEnumerable<Speciality>> GetAllAsync(RequestParameters pagingParameters, bool trackChanges = false) =>
 		await GetAll()
 		.Paginate(pagingParameters)
 		.ToListAsync();
