@@ -11,6 +11,6 @@ public class VacancyRequestDtoValidator : AbstractValidator<VacancyRequestDto>
             .NotEmpty().WithMessage("Receipt date can't be empty");
 
         RuleFor(v => v.Description)
-            .MaximumLength(500).WithMessage("Description can't be longer than 500 characters");
+            .MaximumLength(1000).WithMessage("Description can't be longer than 1000 characters");
     }
 }
