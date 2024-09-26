@@ -18,8 +18,9 @@ public class CompanyRepository : BaseRepository<Company>, ICompanyRepository
     public async Task<Company> GetByIdAsync(Guid Id, bool trackChanges = false) =>
         await GetByPredicate(c => c.Id.Equals(Id), trackChanges).FirstOrDefaultAsync();
 
-    public async Task<IEnumerable<Company>> GetAllAsync(RequestParameters pagingParameters, bool trackChanges = false) =>
+    public async Task<IEnumerable<Company>> GetAllAsync(CompanyRequestParameters requestParameters, bool trackChanges = false) =>
         await GetAll(trackChanges)
-        .Paginate(pagingParameters)
+        .Search(requestParameters)
+        .Paginate(requestParameters)
         .ToListAsync();
 }

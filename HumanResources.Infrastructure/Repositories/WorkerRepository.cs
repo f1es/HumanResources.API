@@ -17,9 +17,10 @@ public class WorkerRepository : BaseRepository<Worker>, IWorkerRepository
 		_context = context;
 	}
 
-	public async Task<IEnumerable<Worker>> GetAllAsync(RequestParameters pagingParameters, bool trackChanges = false) =>
+	public async Task<IEnumerable<Worker>> GetAllAsync(WorkerRequestParameters requestParameters, bool trackChanges = false) =>
 		await GetAll(trackChanges)
-		.Paginate(pagingParameters)
+		.Search(requestParameters)
+		.Paginate(requestParameters)
 		.ToListAsync();
 
 	public async Task<Worker> GetByIdAsync(Guid Id, bool trackChanges = false) =>

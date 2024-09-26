@@ -17,7 +17,7 @@ public class DepartmentController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> GetAll(Guid companyId, [FromQuery] RequestParameters requestParameters)
+	public async Task<IActionResult> GetAll(Guid companyId, [FromQuery] DepartmentRequestParameters requestParameters)
 	{
 		var response = await _departmentService.GetAllAsync(companyId, requestParameters);
 

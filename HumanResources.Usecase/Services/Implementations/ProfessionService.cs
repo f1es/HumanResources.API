@@ -41,7 +41,7 @@ public class ProfessionService : IProfessionService
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task<IEnumerable<ProfessionResponseDto>> GetAllAsync(RequestParameters requestParameters)
+	public async Task<IEnumerable<ProfessionResponseDto>> GetAllAsync(ProfessionRequestParameters requestParameters)
 	{
 		var professions = await _repositoryManager.ProfessionRepository.GetAllAsync(requestParameters);
 		var professionsResponse = _mapper.Map<IEnumerable<ProfessionResponseDto>>(professions);

@@ -45,7 +45,7 @@ public class DepartmentService : IDepartmentService
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task<IEnumerable<DepartmentResponseDto>> GetAllAsync(Guid companyId, RequestParameters requestParameters)
+	public async Task<IEnumerable<DepartmentResponseDto>> GetAllAsync(Guid companyId, DepartmentRequestParameters requestParameters)
 	{
 		await CheckIfCompanyExist(companyId);
 

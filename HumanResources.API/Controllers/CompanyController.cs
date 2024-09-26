@@ -17,7 +17,7 @@ public class CompanyController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> GetAll([FromQuery] RequestParameters requestParameters)
+	public async Task<IActionResult> GetAll([FromQuery] CompanyRequestParameters requestParameters)
 	{
 		var response = await _companyService.GetAllAsync(requestParameters);
 

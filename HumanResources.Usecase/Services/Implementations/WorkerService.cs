@@ -46,7 +46,7 @@ public class WorkerService : IWorkerService
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task<IEnumerable<WorkerResponseDto>> GetAllAsync(Guid companyId, Guid departmentId, RequestParameters requestParameters)
+	public async Task<IEnumerable<WorkerResponseDto>> GetAllAsync(Guid companyId, Guid departmentId, WorkerRequestParameters requestParameters)
 	{
 		await CheckIfCompanyExistAsync(companyId);
 		await CheckIfDepartmentExistAsync(departmentId);

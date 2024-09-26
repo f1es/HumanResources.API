@@ -17,7 +17,7 @@ public class ProfessionController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> GetAll([FromQuery] RequestParameters requestParameters)
+	public async Task<IActionResult> GetAll([FromQuery] ProfessionRequestParameters requestParameters)
 	{
 		var response = await _professionService.GetAllAsync(requestParameters);
 

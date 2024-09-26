@@ -17,7 +17,7 @@ public class WorkerController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> GetAll(Guid companyId, Guid departmentId, [FromQuery] RequestParameters requestParameters)
+	public async Task<IActionResult> GetAll(Guid companyId, Guid departmentId, [FromQuery] WorkerRequestParameters requestParameters)
 	{
 		var response = await _workerService.GetAllAsync(companyId, departmentId, requestParameters);
 

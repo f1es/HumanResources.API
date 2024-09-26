@@ -34,7 +34,7 @@ public class CompanyService : ICompanyService
 		return companyResponse;
 	}
 
-	public async Task<IEnumerable<CompanyResponseDto>> GetAllAsync(RequestParameters requestParameters)
+	public async Task<IEnumerable<CompanyResponseDto>> GetAllAsync(CompanyRequestParameters requestParameters)
 	{
 		var companies = await _repositoryManager.CompanyRepository.GetAllAsync(requestParameters);
 		var companiesResponse = _mapper.Map<IEnumerable<CompanyResponseDto>>(companies);

@@ -6,7 +6,7 @@ namespace HumanResources.Usecase.Services.Interfaces;
 
 public interface IDepartmentService
 {
-	Task<IEnumerable<DepartmentResponseDto>> GetAllAsync(Guid companyId, RequestParameters requestParameters);
+	Task<IEnumerable<DepartmentResponseDto>> GetAllAsync(Guid companyId, DepartmentRequestParameters requestParameters);
 	Task<DepartmentResponseDto> GetByIdAsync(Guid companyId, Guid id);
 	Task<DepartmentResponseDto> CreateAsync(Guid companyId, DepartmentRequestDto departmentDto);
 	Task UpdateAsync(Guid companyId, Guid id, DepartmentRequestDto departmentDto);
