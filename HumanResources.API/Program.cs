@@ -1,3 +1,4 @@
+using HumanResources.API.Extensions;
 using HumanResources.API.Middlewares;
 using HumanResources.Infrastructure.Context;
 using HumanResources.Infrastructure.Extensions;
@@ -9,7 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
@@ -17,17 +17,14 @@ builder.Services.ConfigureMapperProfiles();
 builder.Services.ConfigureRepositories();
 builder.Services.ConfigureServices();
 builder.Services.ConfigureValidators();
-
-builder.Services.AddDbContext<HumanResourcesDbContext>(options =>
-{
-	options.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"));
-});
+builder.Services.ConfigureCors();
+builder.Services.ConfigureDbContext(builder);
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
