@@ -15,21 +15,9 @@ public class ProfessionRepository : BaseRepository<Profession>, IProfessionRepos
 		_context = context;
 	}
 
-	public async Task<IEnumerable<Profession>> GetAllAsync(bool trackChanges = false) => 
-		trackChanges ?
-		await GetAll()
-		.ToListAsync()
-		:
-		await GetAll()
-		.AsNoTracking()
-		.ToListAsync();
+	public async Task<IEnumerable<Profession>> GetAllAsync(PagingParameters pagingParameters, bool trackChanges = false) => 
+		await GetAll(trackChanges).ToListAsync();
 
-	public async Task<Profession> GetByIdAsync(Guid Id, bool trackChanges = false) => 
-		trackChanges ?
-		await GetByPredicate(p => p.Id.Equals(Id)) 
-		.FirstOrDefaultAsync()
-		:
-		await GetByPredicate(p => p.Id.Equals(Id))
-		.AsNoTracking()
-		.FirstOrDefaultAsync();
+	public async Task<Profession> GetByIdAsync(Guid Id, bool trackChanges = false) =>
+		await GetByPredicate(p => p.Id.Equals(Id), trackChanges).FirstOrDefaultAsync();
 }

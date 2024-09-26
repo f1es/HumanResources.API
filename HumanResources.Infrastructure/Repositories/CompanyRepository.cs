@@ -1,6 +1,7 @@
 ﻿using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
 using HumanResources.Infrastructure.Context;
+using HumanResources.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace HumanResources.Infrastructure.Repositories;
@@ -14,20 +15,10 @@ public class CompanyRepository : BaseRepository<Company>, ICompanyRepository
         _context = context;
     }
     public async Task<Company> GetByIdAsync(Guid Id, bool trackChanges = false) =>
-        trackChanges ?
-		await GetByPredicate(c => c.Id.Equals(Id))
-        .FirstOrDefaultAsync()
-        :
-		await GetByPredicate(c => c.Id.Equals(Id))
-        .AsNoTracking()
-		.FirstOrDefaultAsync();
+        await GetByPredicate(c => c.Id.Equals(Id), trackChanges).FirstOrDefaultAsync();
 
-    public async Task<IEnumerable<Company>> GetAllAsync(bool trackChanges = false) => 
-        trackChanges ? 
-        await GetAll()
-        .ToListAsync()
-        :
-        await GetAll()
-        .AsNoTracking()
+    public async Task<IEnumerable<Company>> GetAllAsync(PagingParameters pagingParameters, bool trackChanges = false) =>
+        await GetAll(trackChanges)
+        .Paginate(pagingParameters)
         .ToListAsync();
 }

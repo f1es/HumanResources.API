@@ -1,6 +1,7 @@
 ﻿using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
 using HumanResources.Infrastructure.Context;
+using HumanResources.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace HumanResources.Infrastructure.Repositories;
@@ -15,21 +16,11 @@ public class SpecialityRepository : BaseRepository<Speciality>, ISpecialityRepos
 		_context = context;
 	}
 
-	public async Task<IEnumerable<Speciality>> GetAllAsync(bool trackChanges = false) => 
-		trackChanges ?
+	public async Task<IEnumerable<Speciality>> GetAllAsync(PagingParameters pagingParameters, bool trackChanges = false) =>
 		await GetAll()
-		.ToListAsync()
-		:
-		await GetAll() 
-		.AsNoTracking()
+		.Paginate(pagingParameters)
 		.ToListAsync();
 
-	public async Task<Speciality> GetByIdAsync(Guid Id, bool trackChanges = false) => 
-		trackChanges ?
-		await GetByPredicate(s => s.Id.Equals(Id))
-		.FirstOrDefaultAsync()
-		:
-		await GetByPredicate(s => s.Id.Equals(Id))
-		.AsNoTracking()
-		.FirstOrDefaultAsync();
+	public async Task<Speciality> GetByIdAsync(Guid Id, bool trackChanges = false) =>
+		await GetByPredicate(s => s.Id.Equals(Id)).FirstOrDefaultAsync();
 }

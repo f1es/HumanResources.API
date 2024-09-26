@@ -14,21 +14,9 @@ public class DepartmentRepository : BaseRepository<Department>, IDepartmentRepos
         _context = context;
     }
 
-    public async Task<IEnumerable<Department>> GetAllAsync(bool trackChanges = false) => 
-		trackChanges ?
-		await GetAll()
-		.ToListAsync() 
-		:
-		await GetAll()
-		.AsNoTracking()
-		.ToListAsync();
+    public async Task<IEnumerable<Department>> GetAllAsync(PagingParameters pagingParameters, bool trackChanges = false) => 
+		await GetAll(trackChanges).ToListAsync();
 
 	public async Task<Department> GetByIdAsync(Guid Id, bool trackChanges = false) =>
-		trackChanges ?
-		await GetByPredicate(d => d.Id.Equals(Id))
-		.FirstOrDefaultAsync()
-		:
-		await GetByPredicate(d => d.Id.Equals(Id))
-		.AsNoTracking()
-		.FirstOrDefaultAsync();
+		await GetByPredicate(d => d.Id.Equals(Id), trackChanges).FirstOrDefaultAsync();
 }

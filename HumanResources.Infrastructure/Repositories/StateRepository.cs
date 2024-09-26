@@ -15,21 +15,9 @@ public class StateRepository : BaseRepository<State>, IStateRepository
 		_context = context;
 	}
 
-	public async Task<IEnumerable<State>> GetAllAsync(bool trackChanges = false) =>
-		trackChanges ?
-		await GetAll()
-		.ToListAsync() 
-		:
-		await GetAll()
-		.AsNoTracking()
-		.ToListAsync();
+	public async Task<IEnumerable<State>> GetAllAsync(PagingParameters pagingParameters, bool trackChanges = false) =>
+		await GetAll(trackChanges).ToListAsync();
 
 	public async Task<State> GetByIdAsync(Guid Id, bool trackChanges = false) => 
-		trackChanges ?
-		await GetByPredicate(s => s.Id.Equals(Id)) 
-		.FirstOrDefaultAsync()
-		:
-		await GetByPredicate(s => s.Id.Equals(Id))
-		.AsNoTracking()
-		.FirstOrDefaultAsync();
+		await GetByPredicate(s => s.Id.Equals(Id), trackChanges).FirstOrDefaultAsync();
 }
