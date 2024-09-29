@@ -1,4 +1,5 @@
 ﻿using HumanResources.Infrastructure.Context;
+using HumanResources.Usecase.Converters;
 using Microsoft.EntityFrameworkCore;
 
 namespace HumanResources.API.Extensions;
@@ -18,5 +19,12 @@ public static class ConfigureServices
 		services.AddDbContext<HumanResourcesDbContext>(options =>
 		{
 			options.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"));
+		});
+
+	public static void ConfigureControllers(this IServiceCollection services) =>
+		services.AddControllers()
+		.AddJsonOptions(options =>
+		{
+			options.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
 		});
 }
