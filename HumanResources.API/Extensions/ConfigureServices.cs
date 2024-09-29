@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HumanResources.API.Extensions;
 
-public static class ApiDIExtensions
+public static class ConfigureServices
 {
 	public static void ConfigureCors(this IServiceCollection services) =>
 	services.AddCors(options =>
