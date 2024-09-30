@@ -10,7 +10,7 @@ public class Worker
 
 	public Guid SpecialityId { get; set; }
 	public Speciality? Speciality { get; set; }
-	public Guid StateId { get; set; }
-	public State? State { get; set; }
+	//public Guid StateId { get; set; }
+	//public State? State { get; set; }
 	public ICollection<Department>? Departments { get; set; }
 }

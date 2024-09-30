@@ -26,9 +26,9 @@ namespace HumanResources.Infrastructure.Configuration
 				.WithMany(s => s.Workers)
 				.HasForeignKey(x => x.SpecialityId);
 
-			builder.HasOne(x => x.State)
-				.WithMany(s => s.Workers)
-				.HasForeignKey(x => x.StateId);
+			//builder.HasOne(x => x.State)
+			//	.WithMany(s => s.Workers)
+			//	.HasForeignKey(x => x.StateId);
 
 			builder.HasMany(x => x.Departments)
 				.WithMany(d => d.Workers);
