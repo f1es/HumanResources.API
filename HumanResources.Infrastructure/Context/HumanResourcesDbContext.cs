@@ -21,7 +21,6 @@ public class HumanResourcesDbContext : DbContext
     DbSet<Employee>? Employees { get; set; }
     DbSet<Profession>? Professions { get; set; }
     DbSet<Speciality>? Specialities { get; set; }
-    //DbSet<State>? States { get; set; }
     DbSet<Vacancy>? Vacancies { get; set; }
     DbSet<Worker>? Workers { get; set; }
 

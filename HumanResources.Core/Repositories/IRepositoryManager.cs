@@ -7,7 +7,6 @@ public interface IRepositoryManager
 	IEmployeeRepository EmployeeRepository { get; }
 	IProfessionRepository ProfessionRepository { get; }
 	ISpecialityRepository SpecialityRepository { get; }
-	IStateRepository StateRepository { get; }
 	IVacancyRepository VacancyRepository { get; }
 	IWorkerRepository WorkerRepository { get; }
 	Task SaveAsync();

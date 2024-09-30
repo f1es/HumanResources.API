@@ -11,7 +11,6 @@ public class RepositoryManager : IRepositoryManager
 	private readonly Lazy<IEmployeeRepository> _employeeRepository;
 	private readonly Lazy<IProfessionRepository> _professionRepository;
 	private readonly Lazy<ISpecialityRepository> _specialityRepository;
-	private readonly Lazy<IStateRepository> _stateRepository;
 	private readonly Lazy<IVacancyRepository> _vacancyRepository;
 	private readonly Lazy<IWorkerRepository> _workerRepository;
 
@@ -34,9 +33,6 @@ public class RepositoryManager : IRepositoryManager
 		_specialityRepository = new Lazy<ISpecialityRepository>(() => 
 		new SpecialityRepository(context));
 
-		_stateRepository = new Lazy<IStateRepository>(() =>
-		new StateRepository(context));
-
 		_vacancyRepository = new Lazy<IVacancyRepository>(() =>
 		new VacancyRepository(context));
 
@@ -48,7 +44,6 @@ public class RepositoryManager : IRepositoryManager
 	public IEmployeeRepository EmployeeRepository => _employeeRepository.Value;
 	public IProfessionRepository ProfessionRepository => _professionRepository.Value;
 	public ISpecialityRepository SpecialityRepository => _specialityRepository.Value;
-	public IStateRepository StateRepository => _stateRepository.Value;
 	public IVacancyRepository VacancyRepository => _vacancyRepository.Value;
 	public IWorkerRepository WorkerRepository => _workerRepository.Value;
 	public async Task SaveAsync() => 
