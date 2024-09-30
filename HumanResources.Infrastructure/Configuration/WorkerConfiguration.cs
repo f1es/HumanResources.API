@@ -22,9 +22,9 @@ namespace HumanResources.Infrastructure.Configuration
 				.IsRequired()
 				.HasMaxLength(255);
 
-			builder.HasOne(x => x.Speciality)
-				.WithMany(s => s.Workers)
-				.HasForeignKey(x => x.SpecialityId);
+			//builder.HasOne(x => x.Speciality)
+			//	.WithMany(s => s.Workers)
+			//	.HasForeignKey(x => x.SpecialityId);
 
 			builder.HasMany(x => x.Departments)
 				.WithMany(d => d.Workers);
