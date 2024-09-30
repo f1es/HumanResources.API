@@ -8,7 +8,6 @@ public class RepositoryManager : IRepositoryManager
 	private readonly HumanResourcesDbContext _context;
 	private readonly Lazy<ICompanyRepository> _companyRepository;
 	private readonly Lazy<IDepartmentRepository> _departmentRepository;
-	private readonly Lazy<IEmployeeRepository> _employeeRepository;
 	private readonly Lazy<IProfessionRepository> _professionRepository;
 	private readonly Lazy<ISpecialityRepository> _specialityRepository;
 	private readonly Lazy<IVacancyRepository> _vacancyRepository;
@@ -24,9 +23,6 @@ public class RepositoryManager : IRepositoryManager
 		_departmentRepository = new Lazy<IDepartmentRepository>(() =>
 		new DepartmentRepository(context));
 
-		_employeeRepository = new Lazy<IEmployeeRepository>(() =>
-		new EmployeeRepository(context));
-
 		_professionRepository = new Lazy<IProfessionRepository>(() =>
 		new ProfessionRepository(context));
 
@@ -41,7 +37,6 @@ public class RepositoryManager : IRepositoryManager
     }
     public ICompanyRepository CompanyRepository => _companyRepository.Value;
 	public IDepartmentRepository DepartmentRepository => _departmentRepository.Value;
-	public IEmployeeRepository EmployeeRepository => _employeeRepository.Value;
 	public IProfessionRepository ProfessionRepository => _professionRepository.Value;
 	public ISpecialityRepository SpecialityRepository => _specialityRepository.Value;
 	public IVacancyRepository VacancyRepository => _vacancyRepository.Value;

@@ -4,7 +4,6 @@ public interface IRepositoryManager
 {
 	ICompanyRepository CompanyRepository { get; }
 	IDepartmentRepository DepartmentRepository { get; }
-	IEmployeeRepository EmployeeRepository { get; }
 	IProfessionRepository ProfessionRepository { get; }
 	ISpecialityRepository SpecialityRepository { get; }
 	IVacancyRepository VacancyRepository { get; }
