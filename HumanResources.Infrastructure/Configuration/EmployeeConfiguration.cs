@@ -9,22 +9,22 @@ using System.Threading.Tasks;
 
 namespace HumanResources.Infrastructure.Configuration
 {
-	public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
-	{
-		public void Configure(EntityTypeBuilder<Employee> builder)
-		{
-			builder.HasKey(e => e.Id);
+	//public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
+	//{
+	//	public void Configure(EntityTypeBuilder<Employee> builder)
+	//	{
+	//		builder.HasKey(e => e.Id);
 
-			builder.Property(e => e.FirstName)
-				.IsRequired()
-				.HasMaxLength(255);
+	//		builder.Property(e => e.FirstName)
+	//			.IsRequired()
+	//			.HasMaxLength(255);
 
-			builder.Property(e => e.LastName)
-				.IsRequired()
-				.HasMaxLength(255);
+	//		builder.Property(e => e.LastName)
+	//			.IsRequired()
+	//			.HasMaxLength(255);
 
-			builder.Property(e => e.Birthday)
-				.IsRequired();
-		}
-	}
+	//		builder.Property(e => e.Birthday)
+	//			.IsRequired();
+	//	}
+	//}
 }
