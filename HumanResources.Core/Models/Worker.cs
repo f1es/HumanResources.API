@@ -7,8 +7,5 @@ public class Worker
 	public string? LastName { get; set; }
 	public string? Phone { get; set; }
 	public DateTime Birthday { get; set; }
-
-	//public Guid SpecialityId { get; set; }
-	//public Speciality? Speciality { get; set; }
 	public ICollection<Department>? Departments { get; set; }
 }
