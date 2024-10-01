@@ -13,6 +13,6 @@ public class DateTimeConverter : JsonConverter<DateTime>
 
 	public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
 	{
-		writer.WriteStringValue(value.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture));
+		writer.WriteStringValue(value.ToString("dd-MM-yyyyT", CultureInfo.InvariantCulture));
 	}
 }

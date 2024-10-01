@@ -1,5 +1,6 @@
 ﻿using HumanResources.Infrastructure.Context;
 using HumanResources.Usecase.Converters;
+using HumanResources.Usecase.NamingPolicies;
 using Microsoft.EntityFrameworkCore;
 
 namespace HumanResources.API.Extensions;
@@ -25,6 +26,6 @@ public static class ConfigureServices
 		services.AddControllers()
 		.AddJsonOptions(options =>
 		{
-			options.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
+			options.JsonSerializerOptions.PropertyNamingPolicy = new PascalCaseNamingPolicy();
 		});
 }
