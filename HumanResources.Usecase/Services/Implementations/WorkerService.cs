@@ -28,6 +28,7 @@ public class WorkerService : IWorkerService
 		await CheckIfDepartmentExistAsync(departmentId);
 
 		var workerModel = _mapper.Map<Worker>(workerDto);
+		workerModel.Id = Guid.NewGuid();
 		_repositoryManager.WorkerRepository.Create(workerModel);
 		await _repositoryManager.SaveAsync();
 
