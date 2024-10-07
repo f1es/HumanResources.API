@@ -17,7 +17,7 @@ public class VacancyController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> GetAll(Guid companyId, [FromQuery] RequestParameters requestParameters)
+	public async Task<IActionResult> GetAll(Guid companyId, [FromQuery] VacancyRequestParameters requestParameters)
 	{
 		var response = await _vacancyService.GetAllAsync(companyId, requestParameters);
 

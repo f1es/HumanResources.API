@@ -48,7 +48,7 @@ public class VacancyService : IVacancyService
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task<IEnumerable<VacancyResponseDto>> GetAllAsync(Guid companyId, RequestParameters requestParameters)
+	public async Task<IEnumerable<VacancyResponseDto>> GetAllAsync(Guid companyId, VacancyRequestParameters requestParameters)
 	{
 		await CheckIfCompanyExistAsync(companyId);
 		
