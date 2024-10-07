@@ -70,7 +70,7 @@ public class VacancyService : IVacancyService
 		await CheckIfCompanyExistAsync(companyId);
 
 		var vacancyModel = await GetVacancyByIdAndCheckIfExistAsync(id);
-		var professionModel = await GetProfessionByIdAndCheckIfExistAsync(id);
+		var professionModel = await GetProfessionByIdAndCheckIfExistAsync(vacancyModel.ProfessionId);
 
 		var professionResponse = _mapper.Map<ProfessionResponseDto>(professionModel);
 		return professionResponse;
