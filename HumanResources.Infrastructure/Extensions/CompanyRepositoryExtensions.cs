@@ -29,6 +29,6 @@ public static class CompanyRepositoryExtensions
 		if (string.IsNullOrWhiteSpace(sortQuery))
 			return query.OrderBy(c => c.Name);
 
-		return query.SortByDynamicQuery(sortQuery);
+		return query.OrderBy(sortQuery);
 	}
 }

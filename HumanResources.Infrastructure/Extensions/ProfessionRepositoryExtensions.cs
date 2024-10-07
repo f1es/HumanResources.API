@@ -1,6 +1,7 @@
 ﻿using HumanResources.Core.Models;
 using HumanResources.Core.Shared.Parameters;
 using HumanResources.Usecase.Extensions;
+using System.Linq.Dynamic.Core;
 
 namespace HumanResources.Infrastructure.Extensions;
 
@@ -32,6 +33,6 @@ public static class ProfessionRepositoryExtensions
 		if (string.IsNullOrWhiteSpace(sortQuery))
 			return query.OrderBy(p => p.Name);
 
-		return query.SortByDynamicQuery(sortQuery);
+		return query.OrderBy(sortQuery);
 	}
 }

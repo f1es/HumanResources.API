@@ -1,6 +1,7 @@
 ﻿using HumanResources.Core.Models;
 using HumanResources.Core.Shared.Parameters;
 using HumanResources.Usecase.Extensions;
+using System.Linq.Dynamic.Core;
 
 namespace HumanResources.Infrastructure.Extensions;
 
@@ -16,6 +17,6 @@ public static class VacancyRepositoryExtensions
 		if (string.IsNullOrWhiteSpace(sortQuery))
 			return query.OrderBy(v => v.ReceiptDate);
 
-		return query.SortByDynamicQuery(sortQuery);
+		return query.OrderBy(sortQuery);
 	}
 }
