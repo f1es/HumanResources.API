@@ -12,7 +12,7 @@ public static class VacancyRepositoryExtensions
 		if (string.IsNullOrWhiteSpace(requestParameters.OrederByQuery))
 			return query.OrderBy(v => v.ReceiptDate);
 
-		var sortQuery = SortQueryBuilder.BuildSortQuery<Company>(requestParameters.OrederByQuery);
+		var sortQuery = SortQueryBuilder.BuildSortQuery<Vacancy>(requestParameters.OrederByQuery);
 
 		if (string.IsNullOrWhiteSpace(sortQuery))
 			return query.OrderBy(v => v.ReceiptDate);

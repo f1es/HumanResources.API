@@ -28,7 +28,7 @@ public static class ProfessionRepositoryExtensions
 		if (string.IsNullOrWhiteSpace(requestParameters.OrederByQuery))
 			return query.OrderBy(p => p.Name);
 
-		var sortQuery = SortQueryBuilder.BuildSortQuery<Company>(requestParameters.OrederByQuery);
+		var sortQuery = SortQueryBuilder.BuildSortQuery<Profession>(requestParameters.OrederByQuery);
 
 		if (string.IsNullOrWhiteSpace(sortQuery))
 			return query.OrderBy(p => p.Name);

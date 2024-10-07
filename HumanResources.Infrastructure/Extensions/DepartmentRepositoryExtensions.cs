@@ -24,7 +24,7 @@ public static class DepartmentRepositoryExtensions
 		if (string.IsNullOrWhiteSpace(requestParameters.OrederByQuery))
 			return query.OrderBy(d => d.Name);
 
-		var sortQuery = SortQueryBuilder.BuildSortQuery<Company>(requestParameters.OrederByQuery);
+		var sortQuery = SortQueryBuilder.BuildSortQuery<Department>(requestParameters.OrederByQuery);
 
 		if (string.IsNullOrWhiteSpace(sortQuery))
 			return query.OrderBy(c => c.Name);

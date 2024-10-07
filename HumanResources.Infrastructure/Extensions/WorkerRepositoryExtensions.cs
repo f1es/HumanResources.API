@@ -23,7 +23,7 @@ public static class WorkerRepositoryExtensions
 		if (string.IsNullOrWhiteSpace(requestParameters.OrederByQuery))
 			return query.OrderBy(w => w.FirstName);
 
-		var sortQuery = SortQueryBuilder.BuildSortQuery<Company>(requestParameters.OrederByQuery);
+		var sortQuery = SortQueryBuilder.BuildSortQuery<Worker>(requestParameters.OrederByQuery);
 
 		if (string.IsNullOrWhiteSpace(sortQuery))
 			return query.OrderBy(w => w.FirstName);
