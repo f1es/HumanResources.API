@@ -19,6 +19,7 @@ public class WorkerRepository : BaseRepository<Worker>, IWorkerRepository
 
 	public async Task<IEnumerable<Worker>> GetAllAsync(WorkerRequestParameters requestParameters, bool trackChanges = false) =>
 		await GetAll(trackChanges)
+		.Sort(requestParameters)
 		.Search(requestParameters)
 		.Paginate(requestParameters)
 		.ToListAsync();

@@ -18,6 +18,7 @@ public class DepartmentRepository : BaseRepository<Department>, IDepartmentRepos
 
     public async Task<IEnumerable<Department>> GetAllAsync(DepartmentRequestParameters requestParameters, bool trackChanges = false) => 
 		await GetAll(trackChanges)
+		.Sort(requestParameters)
 		.Search(requestParameters)
 		.Paginate(requestParameters)
 		.ToListAsync();

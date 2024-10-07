@@ -17,9 +17,10 @@ public class VacancyRepository : BaseRepository<Vacancy>, IVacancyRepository
 		_context = context;
 	}
 
-	public async Task<IEnumerable<Vacancy>> GetAllAsync(RequestParameters pagingParameters, bool trackChanges = false) =>
+	public async Task<IEnumerable<Vacancy>> GetAllAsync(VacancyRequestParameters requestParameters, bool trackChanges = false) =>
 		await GetAll(trackChanges)
-		.Paginate(pagingParameters)
+		.Sort(requestParameters)
+		.Paginate(requestParameters)
 		.ToListAsync();
 
 	public async Task<Vacancy> GetByIdAsync(Guid Id, bool trackChanges = false) =>

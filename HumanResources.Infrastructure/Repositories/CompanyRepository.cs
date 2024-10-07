@@ -20,6 +20,7 @@ public class CompanyRepository : BaseRepository<Company>, ICompanyRepository
 
     public async Task<IEnumerable<Company>> GetAllAsync(CompanyRequestParameters requestParameters, bool trackChanges = false) =>
         await GetAll(trackChanges)
+        .Sort(requestParameters)
         .Search(requestParameters)
         .Paginate(requestParameters)
         .ToListAsync();

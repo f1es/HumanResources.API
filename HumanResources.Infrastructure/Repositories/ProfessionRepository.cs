@@ -19,6 +19,7 @@ public class ProfessionRepository : BaseRepository<Profession>, IProfessionRepos
 
 	public async Task<IEnumerable<Profession>> GetAllAsync(ProfessionRequestParameters requestParameters, bool trackChanges = false) => 
 		await GetAll(trackChanges)
+		.Sort(requestParameters)
 		.Search(requestParameters)
 		.Filter(requestParameters)
 		.Paginate(requestParameters)
