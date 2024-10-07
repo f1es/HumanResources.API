@@ -22,7 +22,7 @@ public static class ProfessionRepositoryExtensions
 		return query.Where(p => p.Salary >= requestParameters.MinSalary && p.Salary <= requestParameters.MaxSalary);
 	}
 
-	public static IQueryable<Profession> Sort(this IQueryable<Profession> query, CompanyRequestParameters requestParameters)
+	public static IQueryable<Profession> Sort(this IQueryable<Profession> query, ProfessionRequestParameters requestParameters)
 	{
 		if (string.IsNullOrWhiteSpace(requestParameters.OrederByQuery))
 			return query.OrderBy(p => p.Name);

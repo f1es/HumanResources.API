@@ -17,7 +17,7 @@ public static class WorkerRepositoryExtensions
 			.Contains(requestParameters.SearchTerm.ToLower()));
 	}
 
-	public static IQueryable<Worker> Sort(this IQueryable<Worker> query, CompanyRequestParameters requestParameters)
+	public static IQueryable<Worker> Sort(this IQueryable<Worker> query, WorkerRequestParameters requestParameters)
 	{
 		if (string.IsNullOrWhiteSpace(requestParameters.OrederByQuery))
 			return query.OrderBy(w => w.FirstName);

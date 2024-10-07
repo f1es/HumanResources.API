@@ -18,7 +18,7 @@ public static class DepartmentRepositoryExtensions
 			.Contains(requestParameters.SearchTerm.ToLower()));
 	}
 
-	public static IQueryable<Department> Sort(this IQueryable<Department> query, CompanyRequestParameters requestParameters)
+	public static IQueryable<Department> Sort(this IQueryable<Department> query, DepartmentRequestParameters requestParameters)
 	{
 		if (string.IsNullOrWhiteSpace(requestParameters.OrederByQuery))
 			return query.OrderBy(d => d.Name);

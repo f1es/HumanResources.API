@@ -6,7 +6,7 @@ namespace HumanResources.Infrastructure.Extensions;
 
 public static class VacancyRepositoryExtensions
 {
-	public static IQueryable<Vacancy> Sort(this IQueryable<Vacancy> query, CompanyRequestParameters requestParameters)
+	public static IQueryable<Vacancy> Sort(this IQueryable<Vacancy> query, VacancyRequestParameters requestParameters)
 	{
 		if (string.IsNullOrWhiteSpace(requestParameters.OrederByQuery))
 			return query.OrderBy(v => v.ReceiptDate);
