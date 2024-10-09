@@ -1,10 +1,12 @@
 ﻿using HumanResources.Core.Shared.Dto.Request;
 using HumanResources.Core.Shared.Parameters;
 using HumanResources.Usecase.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HumanResources.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/companies")]
 public class CompanyController : ControllerBase
