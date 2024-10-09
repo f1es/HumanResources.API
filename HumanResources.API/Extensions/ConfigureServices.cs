@@ -1,6 +1,6 @@
 ﻿using HumanResources.Infrastructure.Context;
-using HumanResources.Usecase.Converters;
 using HumanResources.Usecase.NamingPolicies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
 namespace HumanResources.API.Extensions;
@@ -28,4 +28,20 @@ public static class ConfigureServices
 		{
 			options.JsonSerializerOptions.PropertyNamingPolicy = new PascalCaseNamingPolicy();
 		});
+
+	public static void ConfigureAuthentication(this IServiceCollection services)
+	{
+		services.AddAuthentication(config =>
+		{
+			config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+			config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+		})
+		.AddJwtBearer("Bearer", options =>
+		{
+			options.Authority = "http://localhost:5000/";
+			options.RequireHttpsMetadata = false;
+			options.Audience = "HumanResources";
+		});
+		services.AddAuthorization();
+	}
 }
