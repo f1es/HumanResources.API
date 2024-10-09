@@ -19,6 +19,7 @@ builder.Services.ConfigureServices();
 builder.Services.ConfigureValidators();
 builder.Services.ConfigureCors();
 builder.Services.ConfigureDbContext(builder);
+builder.Services.ConfigureAuthentication();
 
 var app = builder.Build();
 
@@ -35,6 +36,7 @@ app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
