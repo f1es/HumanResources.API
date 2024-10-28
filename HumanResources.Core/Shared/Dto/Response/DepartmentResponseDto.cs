@@ -2,4 +2,5 @@
 
 public record DepartmentResponseDto(
     Guid Id,
-    string Name);
+    string Name,
+    Guid CompanyId);
