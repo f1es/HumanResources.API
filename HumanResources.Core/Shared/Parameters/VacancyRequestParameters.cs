@@ -2,4 +2,5 @@
 
 public class VacancyRequestParameters : RequestParameters
 {
+	public string? SearchTerm { get; set; } = string.Empty;
 }

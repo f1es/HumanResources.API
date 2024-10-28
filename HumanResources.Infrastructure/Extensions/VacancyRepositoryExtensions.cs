@@ -19,4 +19,15 @@ public static class VacancyRepositoryExtensions
 
 		return query.OrderBy(sortQuery);
 	}
+
+	public static IQueryable<Vacancy> Search(this IQueryable<Vacancy> query, VacancyRequestParameters requestParameters)
+	{
+		if (string.IsNullOrEmpty(requestParameters.SearchTerm))
+			return query;
+
+		return query
+			.Where(v => v.Profession.Name
+			.ToLower()
+			.Contains(requestParameters.SearchTerm.ToLower()));
+	}
 }

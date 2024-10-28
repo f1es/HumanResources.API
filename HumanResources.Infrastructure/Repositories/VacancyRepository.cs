@@ -20,6 +20,7 @@ public class VacancyRepository : BaseRepository<Vacancy>, IVacancyRepository
 	public async Task<IEnumerable<Vacancy>> GetAllAsync(VacancyRequestParameters requestParameters, bool trackChanges = false) =>
 		await GetAll(trackChanges)
 		.Sort(requestParameters)
+		.Search(requestParameters)
 		.Paginate(requestParameters)
 		.ToListAsync();
 
