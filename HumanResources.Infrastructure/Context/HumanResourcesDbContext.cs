@@ -16,11 +16,11 @@ public class HumanResourcesDbContext : DbContext
         _configuration = configuration;
     }
 
-    DbSet<Company>? Companies { get; set; }
-    DbSet<Department>? Departments { get; set; }
-    DbSet<Profession>? Professions { get; set; }
-    DbSet<Vacancy>? Vacancies { get; set; }
-    DbSet<Worker>? Workers { get; set; }
+    public DbSet<Company>? Companies { get; set; }
+	public DbSet<Department>? Departments { get; set; }
+	public DbSet<Profession>? Professions { get; set; }
+	public DbSet<Vacancy>? Vacancies { get; set; }
+	public DbSet<Worker>? Workers { get; set; }
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
