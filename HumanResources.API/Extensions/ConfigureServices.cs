@@ -38,9 +38,9 @@ public static class ConfigureServices
 		})
 		.AddJwtBearer("Bearer", options =>
 		{
-			options.Authority = "http://localhost:5000/";
-			options.RequireHttpsMetadata = false;
-			options.Audience = "HumanResources";
+			options.Authority = "https://localhost:44387/";
+			options.RequireHttpsMetadata = true;
+			options.Audience = "api1";
 		});
 		services.AddAuthorization();
 	}
