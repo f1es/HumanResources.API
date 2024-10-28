@@ -14,7 +14,7 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
         _context = context;
     }
 
-    protected IQueryable<T> GetByPredicate(Expression<Func<T, bool>> predicate, bool trackChanges = false) =>
+    protected virtual IQueryable<T> GetByPredicate(Expression<Func<T, bool>> predicate, bool trackChanges = false) =>
         trackChanges ?
         _context.Set<T>()
         .Where(predicate)
@@ -23,7 +23,7 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
 		.Where(predicate)
         .AsNoTracking();
 
-    protected IQueryable<T> GetAll(bool trackChanges = false) =>
+    protected virtual IQueryable<T> GetAll(bool trackChanges = false) =>
 		trackChanges ? 
         _context.Set<T>()
         :
