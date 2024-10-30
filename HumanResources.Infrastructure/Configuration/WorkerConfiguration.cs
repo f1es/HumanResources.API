@@ -21,9 +21,6 @@ namespace HumanResources.Infrastructure.Configuration
 			builder.Property(x => x.Birthday)
 				.IsRequired()
 				.HasMaxLength(255);
-
-			builder.HasMany(x => x.Departments)
-				.WithMany(d => d.Workers);
 		}
 	}
 }

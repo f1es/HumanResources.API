@@ -8,5 +8,5 @@ public class Department
 	public Guid CompanyId { get; set; }
 	public Company? Company { get; set; }
 
-	public ICollection<Worker>? Workers { get; set; }
+	public ICollection<DepartmentWorkers> DepartmentWorkers { get; set; }
 }

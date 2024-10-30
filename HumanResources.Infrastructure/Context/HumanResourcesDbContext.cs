@@ -21,6 +21,7 @@ public class HumanResourcesDbContext : DbContext
 	public DbSet<Profession>? Professions { get; set; }
 	public DbSet<Vacancy>? Vacancies { get; set; }
 	public DbSet<Worker>? Workers { get; set; }
+    public DbSet<DepartmentWorkers>? DepartmentWorkers { get; set; }
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
