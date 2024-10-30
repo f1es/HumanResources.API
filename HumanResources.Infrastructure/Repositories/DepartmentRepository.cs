@@ -16,8 +16,8 @@ public class DepartmentRepository : BaseRepository<Department>, IDepartmentRepos
         _context = context;
     }
 
-    public async Task<IEnumerable<Department>> GetAllAsync(DepartmentRequestParameters requestParameters, bool trackChanges = false) => 
-		await GetAll(trackChanges)
+    public async Task<IEnumerable<Department>> GetAllAsync(Guid companyId, DepartmentRequestParameters requestParameters, bool trackChanges = false) => 
+		await GetByPredicate(d => d.CompanyId.Equals(companyId), trackChanges)
 		.Sort(requestParameters)
 		.Search(requestParameters)
 		.Paginate(requestParameters)

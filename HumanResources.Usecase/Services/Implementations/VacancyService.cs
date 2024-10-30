@@ -52,7 +52,7 @@ public class VacancyService : IVacancyService
 	{
 		await CheckIfCompanyExistAsync(companyId);
 		
-		var vacancies = await _repositoryManager.VacancyRepository.GetAllAsync(requestParameters);
+		var vacancies = await _repositoryManager.VacancyRepository.GetAllAsync(companyId, requestParameters);
 		var vacanciesResponse = _mapper.Map<IEnumerable<VacancyResponseDto>>(vacancies);
 		return vacanciesResponse;
 	}

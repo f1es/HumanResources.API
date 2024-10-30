@@ -49,7 +49,7 @@ public class DepartmentService : IDepartmentService
 	{
 		await CheckIfCompanyExist(companyId);
 
-		var departments = await _repositoryManager.DepartmentRepository.GetAllAsync(requestParameters);
+		var departments = await _repositoryManager.DepartmentRepository.GetAllAsync(companyId, requestParameters);
 		var depaetmentsResponse = _mapper.Map<IEnumerable<DepartmentResponseDto>>(departments);
 		return depaetmentsResponse;
 	}

@@ -30,6 +30,14 @@ public class WorkerService : IWorkerService
 		var workerModel = _mapper.Map<Worker>(workerDto);
 		workerModel.Id = Guid.NewGuid();
 		_repositoryManager.WorkerRepository.Create(workerModel);
+
+		var departmentWorker = new DepartmentWorkers()
+		{
+			DepartmentId = departmentId,
+			WorkerId = workerModel.Id
+		};
+		_repositoryManager.DepartmentWorkerRepository.Create(departmentWorker);
+
 		await _repositoryManager.SaveAsync();
 
 		var workerResponse = _mapper.Map<WorkerResponseDto>(workerModel);
@@ -52,7 +60,7 @@ public class WorkerService : IWorkerService
 		await CheckIfCompanyExistAsync(companyId);
 		await CheckIfDepartmentExistAsync(departmentId);
 
-		var workers = await _repositoryManager.WorkerRepository.GetAllAsync(requestParameters);
+		var workers = await _repositoryManager.WorkerRepository.GetAllAsync(departmentId, requestParameters);
 		var workersResponse = _mapper.Map<IEnumerable<WorkerResponseDto>>(workers);
 
 		return workersResponse;

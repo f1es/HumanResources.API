@@ -17,8 +17,8 @@ public class VacancyRepository : BaseRepository<Vacancy>, IVacancyRepository
 		_context = context;
 	}
 
-	public async Task<IEnumerable<Vacancy>> GetAllAsync(VacancyRequestParameters requestParameters, bool trackChanges = false) =>
-		await GetAll(trackChanges)
+	public async Task<IEnumerable<Vacancy>> GetAllAsync(Guid companyId, VacancyRequestParameters requestParameters, bool trackChanges = false) =>
+		await GetByPredicate(v => v.ComapnyId.Equals(companyId), trackChanges)
 		.Sort(requestParameters)
 		.Search(requestParameters)
 		.Paginate(requestParameters)

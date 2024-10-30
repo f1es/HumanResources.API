@@ -17,8 +17,10 @@ public class WorkerRepository : BaseRepository<Worker>, IWorkerRepository
 		_context = context;
 	}
 
-	public async Task<IEnumerable<Worker>> GetAllAsync(WorkerRequestParameters requestParameters, bool trackChanges = false) =>
-		await GetAll(trackChanges)
+	public async Task<IEnumerable<Worker>> GetAllAsync(Guid departmentId, WorkerRequestParameters requestParameters, bool trackChanges = false) =>
+		await _context.DepartmentWorkers
+		.Where(dw => dw.DepartmentId.Equals(departmentId))
+		.Select(dw => dw.Worker)
 		.Sort(requestParameters)
 		.Search(requestParameters)
 		.Paginate(requestParameters)
