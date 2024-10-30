@@ -11,6 +11,7 @@ public class RepositoryManager : IRepositoryManager
 	private readonly Lazy<IProfessionRepository> _professionRepository;
 	private readonly Lazy<IVacancyRepository> _vacancyRepository;
 	private readonly Lazy<IWorkerRepository> _workerRepository;
+	private readonly Lazy<IDepartmentWorkerRepository> _departmentWorkerRepository;
 
     public RepositoryManager(HumanResourcesDbContext context)
     {
@@ -30,12 +31,16 @@ public class RepositoryManager : IRepositoryManager
 
 		_workerRepository = new Lazy<IWorkerRepository>(() => 
 		new WorkerRepository(context));
+
+		_departmentWorkerRepository = new Lazy<IDepartmentWorkerRepository>(() =>
+		new DepartmentWorkerRepository(context));
     }
     public ICompanyRepository CompanyRepository => _companyRepository.Value;
 	public IDepartmentRepository DepartmentRepository => _departmentRepository.Value;
 	public IProfessionRepository ProfessionRepository => _professionRepository.Value;
 	public IVacancyRepository VacancyRepository => _vacancyRepository.Value;
 	public IWorkerRepository WorkerRepository => _workerRepository.Value;
+	public IDepartmentWorkerRepository DepartmentWorkerRepository => _departmentWorkerRepository.Value;
 	public async Task SaveAsync() => 
 		await _context.SaveChangesAsync();
 }

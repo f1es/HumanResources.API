@@ -7,5 +7,6 @@ public interface IRepositoryManager
 	IProfessionRepository ProfessionRepository { get; }
 	IVacancyRepository VacancyRepository { get; }
 	IWorkerRepository WorkerRepository { get; }
+	IDepartmentWorkerRepository DepartmentWorkerRepository { get; }
 	Task SaveAsync();
 }
