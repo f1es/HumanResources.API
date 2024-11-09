@@ -81,7 +81,7 @@ public class WorkerService : IWorkerService
 		await CheckIfCompanyExistAsync(companyId);
 		await CheckIfDepartmentExistAsync(departmentId);
 
-		var worker = await GetWorkerByIdAndCheckIfExistAsync(id);
+		var worker = await GetWorkerByIdAndCheckIfExistAsync(id, trackChanges: true);
 
 		worker = _mapper.Map(workerDto, worker);
 
