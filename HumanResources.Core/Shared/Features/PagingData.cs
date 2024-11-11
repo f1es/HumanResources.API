@@ -7,6 +7,6 @@ public class PagingData
 	public int PageSize { get; set; }
 	public int Count { get; set; }
 
-	public bool HasNext => CurrentPage > 1;
-	public bool HasPrevious => CurrentPage < PageCount;
+	public bool HasPrevious => CurrentPage > 1;
+	public bool HasNext => CurrentPage < PageCount;
 }
