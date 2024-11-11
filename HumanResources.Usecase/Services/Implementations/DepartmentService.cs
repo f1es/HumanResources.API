@@ -4,6 +4,7 @@ using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
 using HumanResources.Core.Shared.Dto.Request;
 using HumanResources.Core.Shared.Dto.Response;
+using HumanResources.Core.Shared.Features;
 using HumanResources.Core.Shared.Parameters;
 using HumanResources.Usecase.Services.Interfaces;
 
@@ -45,13 +46,16 @@ public class DepartmentService : IDepartmentService
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task<IEnumerable<DepartmentResponseDto>> GetAllAsync(Guid companyId, DepartmentRequestParameters requestParameters)
+	public async Task<PagedList<DepartmentResponseDto>> GetAllAsync(Guid companyId, DepartmentRequestParameters requestParameters)
 	{
 		await CheckIfCompanyExist(companyId);
 
 		var departments = await _repositoryManager.DepartmentRepository.GetAllAsync(companyId, requestParameters);
 		var depaetmentsResponse = _mapper.Map<IEnumerable<DepartmentResponseDto>>(departments);
-		return depaetmentsResponse;
+
+		var pagedList = PagedList<DepartmentResponseDto>.ToPagedList(depaetmentsResponse, requestParameters);
+
+		return pagedList;
 	}
 
 	public async Task<DepartmentResponseDto> GetByIdAsync(Guid companyId, Guid id)

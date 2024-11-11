@@ -1,12 +1,12 @@
 ﻿using HumanResources.Core.Shared.Dto.Request;
 using HumanResources.Core.Shared.Parameters;
 using HumanResources.Usecase.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace HumanResources.API.Controllers;
 
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("api/companies")]
 public class CompanyController : ControllerBase
@@ -22,6 +22,8 @@ public class CompanyController : ControllerBase
 	public async Task<IActionResult> GetAll([FromQuery] CompanyRequestParameters requestParameters)
 	{
 		var response = await _companyService.GetAllAsync(requestParameters);
+
+		Response.Headers.Append("Pagination", JsonSerializer.Serialize(response.PagingData));
 
 		return Ok(response);
 	}

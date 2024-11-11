@@ -4,6 +4,7 @@ using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
 using HumanResources.Core.Shared.Dto.Request;
 using HumanResources.Core.Shared.Dto.Response;
+using HumanResources.Core.Shared.Features;
 using HumanResources.Core.Shared.Parameters;
 using HumanResources.Usecase.Services.Interfaces;
 
@@ -34,11 +35,14 @@ public class CompanyService : ICompanyService
 		return companyResponse;
 	}
 
-	public async Task<IEnumerable<CompanyResponseDto>> GetAllAsync(CompanyRequestParameters requestParameters)
+	public async Task<PagedList<CompanyResponseDto>> GetAllAsync(CompanyRequestParameters requestParameters)
 	{
 		var companies = await _repositoryManager.CompanyRepository.GetAllAsync(requestParameters);
 		var companiesResponse = _mapper.Map<IEnumerable<CompanyResponseDto>>(companies);
-		return companiesResponse;
+
+		var pagedList = PagedList<CompanyResponseDto>.ToPagedList(companiesResponse, requestParameters);
+
+		return pagedList;
 	}
 
 	public async Task<CompanyResponseDto> GetByIdAsync(Guid id)

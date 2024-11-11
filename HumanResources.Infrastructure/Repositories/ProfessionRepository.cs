@@ -22,7 +22,6 @@ public class ProfessionRepository : BaseRepository<Profession>, IProfessionRepos
 		.Sort(requestParameters)
 		.Search(requestParameters)
 		.Filter(requestParameters)
-		.Paginate(requestParameters)
 		.ToListAsync();
 
 	public async Task<Profession> GetByIdAsync(Guid Id, bool trackChanges = false) =>

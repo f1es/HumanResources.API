@@ -4,6 +4,7 @@ using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
 using HumanResources.Core.Shared.Dto.Request;
 using HumanResources.Core.Shared.Dto.Response;
+using HumanResources.Core.Shared.Features;
 using HumanResources.Core.Shared.Parameters;
 using HumanResources.Usecase.Services.Interfaces;
 
@@ -41,11 +42,14 @@ public class ProfessionService : IProfessionService
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task<IEnumerable<ProfessionResponseDto>> GetAllAsync(ProfessionRequestParameters requestParameters)
+	public async Task<PagedList<ProfessionResponseDto>> GetAllAsync(ProfessionRequestParameters requestParameters)
 	{
 		var professions = await _repositoryManager.ProfessionRepository.GetAllAsync(requestParameters);
 		var professionsResponse = _mapper.Map<IEnumerable<ProfessionResponseDto>>(professions);
-		return professionsResponse;
+
+		var pagedList = PagedList<ProfessionResponseDto>.ToPagedList(professionsResponse, requestParameters);
+
+		return pagedList;
 	}
 
 	public async Task<ProfessionResponseDto> GetByIdAsync(Guid id)

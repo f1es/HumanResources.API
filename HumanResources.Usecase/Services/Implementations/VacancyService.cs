@@ -4,6 +4,7 @@ using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
 using HumanResources.Core.Shared.Dto.Request;
 using HumanResources.Core.Shared.Dto.Response;
+using HumanResources.Core.Shared.Features;
 using HumanResources.Core.Shared.Parameters;
 using HumanResources.Usecase.Services.Interfaces;
 
@@ -48,13 +49,16 @@ public class VacancyService : IVacancyService
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task<IEnumerable<VacancyResponseDto>> GetAllAsync(Guid companyId, VacancyRequestParameters requestParameters)
+	public async Task<PagedList<VacancyResponseDto>> GetAllAsync(Guid companyId, VacancyRequestParameters requestParameters)
 	{
 		await CheckIfCompanyExistAsync(companyId);
 		
 		var vacancies = await _repositoryManager.VacancyRepository.GetAllAsync(companyId, requestParameters);
 		var vacanciesResponse = _mapper.Map<IEnumerable<VacancyResponseDto>>(vacancies);
-		return vacanciesResponse;
+
+		var pagedList = PagedList<VacancyResponseDto>.ToPagedList(vacanciesResponse, requestParameters);
+
+		return pagedList;
 	}
 
 	public async Task<VacancyResponseDto> GetByIdAsync(Guid companyId, Guid id)

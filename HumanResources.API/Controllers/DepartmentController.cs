@@ -2,6 +2,7 @@
 using HumanResources.Core.Shared.Parameters;
 using HumanResources.Usecase.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace HumanResources.API.Controllers;
 
@@ -20,6 +21,8 @@ public class DepartmentController : ControllerBase
 	public async Task<IActionResult> GetAll(Guid companyId, [FromQuery] DepartmentRequestParameters requestParameters)
 	{
 		var response = await _departmentService.GetAllAsync(companyId, requestParameters);
+
+		Response.Headers.Append("Pagination", JsonSerializer.Serialize(response.PagingData));
 
 		return Ok(response);
 	}

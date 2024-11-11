@@ -4,6 +4,7 @@ using HumanResources.Core.Models;
 using HumanResources.Core.Repositories;
 using HumanResources.Core.Shared.Dto.Request;
 using HumanResources.Core.Shared.Dto.Response;
+using HumanResources.Core.Shared.Features;
 using HumanResources.Core.Shared.Parameters;
 using HumanResources.Usecase.Services.Interfaces;
 
@@ -55,7 +56,7 @@ public class WorkerService : IWorkerService
 		await _repositoryManager.SaveAsync();
 	}
 
-	public async Task<IEnumerable<WorkerResponseDto>> GetAllAsync(Guid companyId, Guid departmentId, WorkerRequestParameters requestParameters)
+	public async Task<PagedList<WorkerResponseDto>> GetAllAsync(Guid companyId, Guid departmentId, WorkerRequestParameters requestParameters)
 	{
 		await CheckIfCompanyExistAsync(companyId);
 		await CheckIfDepartmentExistAsync(departmentId);
@@ -63,7 +64,9 @@ public class WorkerService : IWorkerService
 		var workers = await _repositoryManager.WorkerRepository.GetAllAsync(departmentId, requestParameters);
 		var workersResponse = _mapper.Map<IEnumerable<WorkerResponseDto>>(workers);
 
-		return workersResponse;
+		var pagedWorkers = PagedList<WorkerResponseDto>.ToPagedList(workersResponse, requestParameters);
+
+		return pagedWorkers;
 	}
 
 	public async Task<WorkerResponseDto> GetByIdAsync(Guid companyId, Guid departmentId, Guid id)

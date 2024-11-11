@@ -21,7 +21,6 @@ public class VacancyRepository : BaseRepository<Vacancy>, IVacancyRepository
 		await GetByPredicate(v => v.ComapnyId.Equals(companyId), trackChanges)
 		.Sort(requestParameters)
 		.Search(requestParameters)
-		.Paginate(requestParameters)
 		.ToListAsync();
 
 	public async Task<Vacancy> GetByIdAsync(Guid Id, bool trackChanges = false) =>

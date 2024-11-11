@@ -2,6 +2,7 @@
 using HumanResources.Core.Shared.Parameters;
 using HumanResources.Usecase.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace HumanResources.API.Controllers;
 
@@ -20,6 +21,8 @@ public class ProfessionController : ControllerBase
 	public async Task<IActionResult> GetAll([FromQuery] ProfessionRequestParameters requestParameters)
 	{
 		var response = await _professionService.GetAllAsync(requestParameters);
+
+		Response.Headers.Append("Pagination", JsonSerializer.Serialize(response.PagingData));
 
 		return Ok(response);
 	}

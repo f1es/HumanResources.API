@@ -22,6 +22,5 @@ public class CompanyRepository : BaseRepository<Company>, ICompanyRepository
         await GetAll(trackChanges)
         .Sort(requestParameters)
         .Search(requestParameters)
-        .Paginate(requestParameters)
         .ToListAsync();
 }

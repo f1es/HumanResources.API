@@ -23,7 +23,6 @@ public class WorkerRepository : BaseRepository<Worker>, IWorkerRepository
 		.Select(dw => dw.Worker)
 		.Sort(requestParameters)
 		.Search(requestParameters)
-		.Paginate(requestParameters)
 		.ToListAsync();
 
 	public async Task<Worker> GetByIdAsync(Guid Id, bool trackChanges = false) =>

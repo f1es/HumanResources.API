@@ -20,7 +20,6 @@ public class DepartmentRepository : BaseRepository<Department>, IDepartmentRepos
 		await GetByPredicate(d => d.CompanyId.Equals(companyId), trackChanges)
 		.Sort(requestParameters)
 		.Search(requestParameters)
-		.Paginate(requestParameters)
 		.ToListAsync();
 
 	public async Task<Department> GetByIdAsync(Guid Id, bool trackChanges = false) =>
