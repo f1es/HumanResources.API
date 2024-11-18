@@ -1,6 +1,8 @@
 ﻿using AuthService.API.IdentityServerConfig;
 using AuthService.Core.Models;
 using AuthService.Infrastructure.Context;
+using AuthService.Usecase.Services.Implementations;
+using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +21,8 @@ public static class ConfigureServices
 			.AddInMemoryIdentityResources(Configuration.GetIdentityResources())
 			.AddInMemoryApiScopes(Configuration.GetApiScopes())
 			.AddDeveloperSigningCredential()
-			.AddAspNetIdentity<User>();
+			.AddAspNetIdentity<User>()
+			.AddProfileService<ProfileService>();
 	}
 
 	public static void ConfigureDbContext(this IServiceCollection services, WebApplicationBuilder builder) =>
