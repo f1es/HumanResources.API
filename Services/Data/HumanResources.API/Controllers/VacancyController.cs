@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace HumanResources.API.Controllers;
 
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("api/companies/{companyId:guid}/vacancies")]
 public class VacancyController : ControllerBase
