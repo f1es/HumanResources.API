@@ -17,13 +17,20 @@ public class WorkerRepository : BaseRepository<Worker>, IWorkerRepository
 		_context = context;
 	}
 
-	public async Task<IEnumerable<Worker>> GetAllAsync(Guid departmentId, WorkerRequestParameters requestParameters, bool trackChanges = false) =>
-		await _context.DepartmentWorkers
+	public async Task<IEnumerable<Worker>> GetAllAsync(Guid departmentId, WorkerRequestParameters requestParameters, bool trackChanges = false)
+	{
+		var workersQuery = await _context.DepartmentWorkers
 		.Where(dw => dw.DepartmentId.Equals(departmentId))
 		.Select(dw => dw.Worker)
 		.Sort(requestParameters)
-		.Search(requestParameters)
 		.ToListAsync();
+
+		var workers = workersQuery
+		.Search(requestParameters)
+		.ToList();
+
+		return workers;
+	}
 
 	public async Task<Worker> GetByIdAsync(Guid Id, bool trackChanges = false) =>
 		await GetByPredicate(w => w.Id.Equals(Id), trackChanges).FirstOrDefaultAsync();
