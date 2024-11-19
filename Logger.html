@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Realtime Logs</title>
+  </head>
+  <body>
+    <h1>Realtime Logs</h1>
+    <ul id="log-list"></ul>
+
+    <script>
+      const socket = new WebSocket("wss://localhost:44327/ws");
+      socket.onmessage = function (event) {
+        const log = event.data;
+        const logList = document.getElementById("log-list");
+        const li = document.createElement("li");
+        li.textContent = log;
+        logList.appendChild(li);
+      };
+    </script>
+  </body>
+</html>
