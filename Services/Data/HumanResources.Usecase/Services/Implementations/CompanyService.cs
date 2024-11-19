@@ -14,13 +14,16 @@ public class CompanyService : ICompanyService
 {
 	private readonly IRepositoryManager _repositoryManager;
 	private readonly IMapper _mapper;
+	private readonly ILoggerManager _loggerManager;
 
 	public CompanyService(
 		IRepositoryManager repositoryManager, 
-		IMapper mapper)
+		IMapper mapper,
+		ILoggerManager loggerManager)
 	{
 		_repositoryManager = repositoryManager;
 		_mapper = mapper;
+		_loggerManager = loggerManager;
 	}
 
 	public async Task<CompanyResponseDto> CreateAsync(CompanyRequestDto companyDto)

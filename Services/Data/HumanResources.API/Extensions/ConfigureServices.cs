@@ -1,5 +1,7 @@
 ﻿using HumanResources.Infrastructure.Context;
 using HumanResources.Usecase.NamingPolicies;
+using HumanResources.Usecase.Services.Implementations;
+using HumanResources.Usecase.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +17,9 @@ public static class ConfigureServices
 		.AllowAnyMethod()
 		.AllowAnyHeader());
 	});
+
+	public static void ConfigureLogger(this IServiceCollection services) =>
+		services.AddSingleton<ILoggerManager, LoggerManager>();
 
 	public static void ConfigureDbContext(this IServiceCollection services, WebApplicationBuilder builder) =>
 		services.AddDbContext<HumanResourcesDbContext>(options =>
