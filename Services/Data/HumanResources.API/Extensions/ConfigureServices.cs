@@ -21,6 +21,11 @@ public static class ConfigureServices
 	public static void ConfigureLogger(this IServiceCollection services) =>
 		services.AddSingleton<ILoggerManager, LoggerManager>();
 
+	public static void ConfigureWebLogger(this IServiceCollection services)
+	{
+		services.AddSingleton<IWebLogger, WebLogger>();
+	}
+
 	public static void ConfigureDbContext(this IServiceCollection services, WebApplicationBuilder builder) =>
 		services.AddDbContext<HumanResourcesDbContext>(options =>
 		{
