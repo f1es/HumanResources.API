@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanResources.Infrastructu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanResources.Usecase", "..\HumanResources.Usecase\HumanResources.Usecase.csproj", "{9A2889FB-85AA-4D8D-9197-01A61695C62D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanResources.UI", "..\HumanResources.UI\HumanResources.UI.csproj", "{F07E909C-2B88-476E-867F-88A778E9E1B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanResources.UI", "..\HumanResources.UI\HumanResources.UI.csproj", "{F07E909C-2B88-476E-867F-88A778E9E1B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
