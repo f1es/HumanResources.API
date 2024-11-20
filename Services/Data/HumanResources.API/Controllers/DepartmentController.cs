@@ -7,16 +7,18 @@ using System.Text.Json;
 
 namespace HumanResources.API.Controllers;
 
-//[Authorize]
+[Authorize]
 [ApiController]
 [Route("api/companies/{companyId:guid}/departments")]
 public class DepartmentController : ControllerBase
 {
 	private readonly IDepartmentService _departmentService;
+	private readonly IWebLogger _webLogger;
 
-	public DepartmentController(IDepartmentService departmentService)
+	public DepartmentController(IDepartmentService departmentService, IWebLogger webLogger)
 	{
 		_departmentService = departmentService;
+		_webLogger = webLogger;
 	}
 
 	[HttpGet]
@@ -25,6 +27,7 @@ public class DepartmentController : ControllerBase
 		var response = await _departmentService.GetAllAsync(companyId, requestParameters);
 
 		Response.Headers.Append("Pagination", JsonSerializer.Serialize(response.PagingData));
+		await _webLogger.LogInfoAsync($"call api/companies/{companyId}/departments GET", Response.StatusCode, User.Claims);
 
 		return Ok(response);
 	}
@@ -34,6 +37,8 @@ public class DepartmentController : ControllerBase
 	{
 		var response = await _departmentService.GetByIdAsync(companyId, id);
 
+		await _webLogger.LogInfoAsync($"call api/companies/{companyId}/departments/{id} GET", Response.StatusCode, User.Claims);
+
 		return Ok(response);
 	}
 
@@ -41,6 +46,8 @@ public class DepartmentController : ControllerBase
 	public async Task<IActionResult> Create(Guid companyId, DepartmentRequestDto departmentRequest)
 	{
 		var response = await _departmentService.CreateAsync(companyId, departmentRequest);
+
+		await _webLogger.LogInfoAsync($"call api/companies/{companyId}/departments POST", Response.StatusCode, User.Claims);
 
 		return CreatedAtRoute("GetDepartmentById" , new { companyId, id = response.Id }, response);
 	}
@@ -50,6 +57,8 @@ public class DepartmentController : ControllerBase
 	{
 		await _departmentService.DeleteAsync(companyId, id);
 
+		await _webLogger.LogInfoAsync($"call api/companies/{companyId}/departments/{id} DELETE", Response.StatusCode, User.Claims);
+
 		return NoContent();
 	}
 
@@ -57,6 +66,8 @@ public class DepartmentController : ControllerBase
 	public async Task<IActionResult> Update(Guid companyId, Guid id, DepartmentRequestDto departmentRequest)
 	{
 		await _departmentService.UpdateAsync(companyId, id, departmentRequest);
+
+		await _webLogger.LogInfoAsync($"call api/companies/{companyId}/departments/{id} PUT", Response.StatusCode, User.Claims);
 
 		return NoContent();
 	}

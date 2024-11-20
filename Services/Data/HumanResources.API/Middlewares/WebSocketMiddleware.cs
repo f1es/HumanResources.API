@@ -1,4 +1,5 @@
-﻿using HumanResources.Usecase.Services.Implementations;
+﻿using HumanResources.Core.Models;
+using HumanResources.Usecase.Services.Implementations;
 using HumanResources.Usecase.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System.Net.WebSockets;
@@ -45,7 +46,8 @@ public class WebSocketMiddleware
 		while (!result.CloseStatus.HasValue)
 		{
 			var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-			await _webLogger.LogAsync(message);
+			var logAction = new LogAction("server", "connect to logger page", "INFO", 0);
+			await _webLogger.LogAsync(logAction);
 
 			result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
 		}

@@ -7,16 +7,17 @@ using System.Text.Json;
 
 namespace HumanResources.API.Controllers;
 
-//[Authorize]
+[Authorize]
 [ApiController]
 [Route("api/professions")]
 public class ProfessionController : ControllerBase
 {
 	private readonly IProfessionService _professionService;
-
-	public ProfessionController(IProfessionService professionService)
+	private readonly IWebLogger _webLogger;
+	public ProfessionController(IProfessionService professionService, IWebLogger webLogger)
 	{
 		_professionService = professionService;
+		_webLogger = webLogger;
 	}
 
 	[HttpGet]
@@ -25,6 +26,7 @@ public class ProfessionController : ControllerBase
 		var response = await _professionService.GetAllAsync(requestParameters);
 
 		Response.Headers.Append("Pagination", JsonSerializer.Serialize(response.PagingData));
+		await _webLogger.LogInfoAsync("call api/professions GET", Response.StatusCode, User.Claims);
 
 		return Ok(response);
 	}
@@ -33,6 +35,7 @@ public class ProfessionController : ControllerBase
 	public async Task<IActionResult> GetById(Guid id)
 	{
 		var response = await _professionService.GetByIdAsync(id);
+		await _webLogger.LogInfoAsync($"call api/professions/{id} GET", Response.StatusCode, User.Claims);
 
 		return Ok(response);
 	}
@@ -42,6 +45,8 @@ public class ProfessionController : ControllerBase
 	{
 		var response = await _professionService.CreateAsync(professionDto);
 
+		await _webLogger.LogInfoAsync($"call api/professions POST", Response.StatusCode, User.Claims);
+
 		return CreatedAtRoute("GetProfessionById", new { id = response.Id }, response);
 	}
 
@@ -50,6 +55,8 @@ public class ProfessionController : ControllerBase
 	{
 		await _professionService.UpdateAsync(id, professionDto);
 
+		await _webLogger.LogInfoAsync($"call api/professions/{id} PUT", Response.StatusCode, User.Claims);
+
 		return NoContent();
 	}
 
@@ -57,6 +64,8 @@ public class ProfessionController : ControllerBase
 	public async Task<IActionResult> Delete(Guid id)
 	{
 		await _professionService.DeleteAsync(id);
+
+		await _webLogger.LogInfoAsync($"call api/professions/{id} DELETE", Response.StatusCode, User.Claims);
 
 		return NoContent();
 	}
