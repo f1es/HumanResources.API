@@ -8,7 +8,7 @@
     <ul id="log-list"></ul>
 
     <script>
-      const socket = new WebSocket("wss://localhost:44327/ws");
+      const socket = new WebSocket("ws://localhost:5001/ws");
       socket.onmessage = function (event) {
         const log = event.data;
         const logList = document.getElementById("log-list");
