@@ -26,14 +26,39 @@
     <ul id="log-list"></ul>
 
     <script>
-      const socket = new WebSocket("ws://localhost:5001/ws");
+
+      let attempCounter = 0;
+
+      function ConnectSocket(socket){
+        console.log(`connection attemp ${attempCounter + 1}`)
+        attempCounter++;
+        if (attempCounter > 10)
+          {
+            console.log("too many attemps");
+            return;
+          }
+
+        socket = new WebSocket("ws://localhost:5001/ws");
+
+        socket.onclose = () => {
+        setTimeout(ConnectSocket, 4000);
+      }
+
+      socket.onopen = () => {
+        console.log("success");
+      }
+
       socket.onmessage = function (event) {
         const log = event.data;
         const logList = document.getElementById("log-list");
         const li = document.createElement("li");
         li.textContent = log;
         logList.appendChild(li);
-      };
+      }
+    }
+
+      let socket;
+      ConnectSocket(socket);
     </script>
   </body>
 </html>
