@@ -19,6 +19,7 @@ builder.Services.ConfigureMapper();
 builder.Services.ConfigureRepositories();
 builder.Services.ConfigureUsecases();
 builder.Services.ConfigureLogging();
+builder.Services.ConfigureCors();
 
 //builder.Services.AddScoped<IClientStore, CustomClientStore>();
 
@@ -30,6 +31,8 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
+
+app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 
