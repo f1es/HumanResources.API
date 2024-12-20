@@ -3,17 +3,17 @@ using System;
 using HumanResources.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace HumanResources.Infrastructure.Migrations
 {
     [DbContext(typeof(HumanResourcesDbContext))]
-    [Migration("20240930130326_RemoveSpecialityTable")]
-    partial class RemoveSpecialityTable
+    [Migration("20241220143458_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,38 +21,23 @@ namespace HumanResources.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.8")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("DepartmentWorker", b =>
-                {
-                    b.Property<Guid>("DepartmentsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("WorkersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("DepartmentsId", "WorkersId");
-
-                    b.HasIndex("WorkersId");
-
-                    b.ToTable("DepartmentWorker");
-                });
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("HumanResources.Core.Models.Company", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("BaseDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("character varying(255)");
 
                     b.HasKey("Id");
 
@@ -63,15 +48,15 @@ namespace HumanResources.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("CompanyId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("character varying(255)");
 
                     b.HasKey("Id");
 
@@ -80,19 +65,34 @@ namespace HumanResources.Infrastructure.Migrations
                     b.ToTable("Departments");
                 });
 
+            modelBuilder.Entity("HumanResources.Core.Models.DepartmentWorkers", b =>
+                {
+                    b.Property<Guid>("WorkerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("DepartmentId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("WorkerId", "DepartmentId");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("DepartmentWorkers");
+                });
+
             modelBuilder.Entity("HumanResources.Core.Models.Profession", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("character varying(255)");
 
                     b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
@@ -103,20 +103,20 @@ namespace HumanResources.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("ComapnyId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("character varying(1000)");
 
                     b.Property<Guid>("ProfessionId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("ReceiptDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -131,43 +131,28 @@ namespace HumanResources.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("Birthday")
                         .HasMaxLength(255)
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Workers");
-                });
-
-            modelBuilder.Entity("DepartmentWorker", b =>
-                {
-                    b.HasOne("HumanResources.Core.Models.Department", null)
-                        .WithMany()
-                        .HasForeignKey("DepartmentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HumanResources.Core.Models.Worker", null)
-                        .WithMany()
-                        .HasForeignKey("WorkersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("HumanResources.Core.Models.Department", b =>
@@ -179,6 +164,25 @@ namespace HumanResources.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("HumanResources.Core.Models.DepartmentWorkers", b =>
+                {
+                    b.HasOne("HumanResources.Core.Models.Department", "Department")
+                        .WithMany("DepartmentWorkers")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HumanResources.Core.Models.Worker", "Worker")
+                        .WithMany("DepartmentWorkers")
+                        .HasForeignKey("WorkerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("Worker");
                 });
 
             modelBuilder.Entity("HumanResources.Core.Models.Vacancy", b =>
@@ -207,9 +211,19 @@ namespace HumanResources.Infrastructure.Migrations
                     b.Navigation("Vacancies");
                 });
 
+            modelBuilder.Entity("HumanResources.Core.Models.Department", b =>
+                {
+                    b.Navigation("DepartmentWorkers");
+                });
+
             modelBuilder.Entity("HumanResources.Core.Models.Profession", b =>
                 {
                     b.Navigation("Vacancies");
+                });
+
+            modelBuilder.Entity("HumanResources.Core.Models.Worker", b =>
+                {
+                    b.Navigation("DepartmentWorkers");
                 });
 #pragma warning restore 612, 618
         }

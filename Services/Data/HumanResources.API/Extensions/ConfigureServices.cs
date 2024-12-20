@@ -29,7 +29,8 @@ public static class ConfigureServices
 	public static void ConfigureDbContext(this IServiceCollection services, WebApplicationBuilder builder) =>
 		services.AddDbContext<HumanResourcesDbContext>(options =>
 		{
-			options.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"));
+			//options.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"));
+			options.UseNpgsql(builder.Configuration.GetConnectionString("sqlConnection"));
 		});
 
 	public static void ConfigureControllers(this IServiceCollection services) =>
