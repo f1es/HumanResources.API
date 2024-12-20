@@ -30,11 +30,6 @@ public class HumanResourcesDbContext : DbContext
 	}
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
-        if (!optionsBuilder.IsConfigured)
-        {
-            var connectionString = _configuration.GetConnectionString("sqlConnection");
-            optionsBuilder.UseSqlServer(connectionString);
-        }
 		base.OnConfiguring(optionsBuilder);
 	}
 }
