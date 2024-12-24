@@ -23,6 +23,7 @@ builder.Services.ConfigureMapperProfiles();
 builder.Services.ConfigureRepositories();
 builder.Services.ConfigureServices();
 builder.Services.ConfigureValidators();
+builder.Services.ConfigureMediatr();
 builder.Services.ConfigureCors();
 builder.Services.ConfigureDbContext(builder);
 builder.Services.ConfigureAuthentication();

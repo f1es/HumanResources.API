@@ -5,6 +5,7 @@ using HumanResources.Usecase.Services.Implementations;
 using HumanResources.Usecase.Services.Interfaces;
 using HumanResources.Usecase.Validators;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace HumanResources.Usecase.Extensions;
 
@@ -35,5 +36,13 @@ public static class UsecaseDIExtensions
 	{
 		services.AddValidatorsFromAssemblyContaining<CompanyRequestDtoValidator>();
 		services.AddFluentValidationAutoValidation();
+	}
+
+	public static void ConfigureMediatr(this IServiceCollection services)
+	{
+		services.AddMediatR(configuration =>
+		{
+			configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+		});
 	}
 }
