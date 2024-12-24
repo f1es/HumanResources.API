@@ -1,0 +1,40 @@
+
+services:
+  data:
+    build:
+      context: "Services/Data"
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    container_name: human_resources_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Container
+      - DB_HOST=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=12345
+      - DB_NAME=HumanResources
+    depends_on:
+      - data-db
+    networks:
+      - hrnetwork
+
+  data-db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    user: "root"
+    environment:
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=HumanResources
+    volumes:
+      - pgdata:/var/lib/postgresql/data 
+    container_name: human_resources_api_database
+    networks:
+      - hrnetwork
+
+volumes:
+  pgdata:
+
+networks:
+  hrnetwork:
